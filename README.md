@@ -49,5 +49,5 @@ _Technology Innovation Institute_
 * **TOEIC Certificate** (_2021_)
 * **BOSIET** (_2024_)
 
-Publications & Presentations
+## Publications & Presentations
 * "Development and Optimization of a Target Detection and Tracking System at Sea", [M.S. Thesis], _2021_
