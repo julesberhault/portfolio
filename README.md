@@ -20,7 +20,15 @@
 
 ## Projects
 
-### Challenge CoHoMa 2022 Participation
+### 2024: TII Autonomous Surface Vehicle (USV) Development Contribution
+_Technology Innovation Institute_
+
+![Perfect weather for cruising at sea](/assets/img/abu_al_abyad.jpg)
+
+* Engineered robust systems for efficient and safe deployment of USVs in diverse operational settings.
+* Developed perception solutions to handle obtacles and navigate safely.
+
+### 2022: Challenge CoHoMa 2022 Participation
 _ENSTA Paris, U2IS Team_
 
 * Participated in the Challenge [CoHoMa](https://www.defense.gouv.fr/terre/actualites/robotique-larmee-terre-cohoma-2023), organized by Battle Lab Terre and endorsed by the French Army’s Task Force Vulcain, focusing on advancing human-machine collaboration in reconnaissance missions.
@@ -30,12 +38,6 @@ _ENSTA Paris, U2IS Team_
 * Contributed to the deployment of a multi-robot reconnaissance system in realistic combat scenarios.
 
 * Achieved recognition for excellence with **two awards**: Human-Machine Interface and Combative Spirit.
-
-### TII Autonomous Surface Vehicle (USV) Development Contribution
-_Technology Innovation Institute_
-
-* Engineered robust systems for efficient and safe deployment of USVs in diverse operational settings.
-* Developed perception solutions to handle obtacles and navigate safely.
 
 ## Skills
 * **Programming & Tools:** ROS2, Python, C++, Gazebo, Docker
