@@ -39,14 +39,19 @@ _ENSTA Paris, U2IS Team_
 * Achieved recognition for excellence with **two awards**: Human-Machine Interface and Combative Spirit.
 
 ## Skills
-* **Programming & Tools:** ROS2, Python, C++, Gazebo, Docker
-* **Robotics Specializations:** Perception systems, control algorithms, sensor fusion, SLAM
+* **Tools:** Linux, Docker, Jetson, ROS2, Gazebo
+* **Main Programming Languages:**: C++, Python, Bash
+* **Robotics Specializations:** Perception systems, control algorithms, sensor fusion
 * **Marine Applications:** Autonomous surface/underwater vehicles, multi-robot coordination, system integration
-* **Research & Development:** Prototyping, testing, and optimizing robotic systems for field deployment
+
+## Languages
+* **French:** Native Language
+* **English:** Bilingual
+* **Spanish:** Limited Working Proficiency
 
 ## Achievements & Certifications
 * **Ligth Boat License** in France, UAE and International (_< 12 meter, Tourism_)
-* **Driving License** (_2015_)
+* **Driving License** (_since 2015_)
 * **TOEIC Certificate** (_2021_)
 * **BOSIET** (_2024_)
 
