@@ -1,6 +1,6 @@
 # Marine Robotics Engineer
 
-#### Technical Skills: Python, C++, Git, Docker
+#### Technical Skills: Python, C++, Git, Docker, Jetson, ROS
 
 ## Education
 - M.S., Autonomous Mobile Robotics Engineering | [École Nationale Supérieure de Techniques Avancées de Bretagne](https://www.ensta-bretagne.fr/en) (_July 2021_)
@@ -8,25 +8,25 @@
 
 ## Work Experience
 
-**Marine Robotics Specialist @ [Technology Innovation Institute](https://www.tii.ae/) (_January 2022 - Present_)**
-* Developed unmanned surface vehicles (USVs) for diverse applications, including autonomous water transport, defense, and AUV launch/recovery operations.
+**Marine Robotics Specialist @ [Technology Innovation Institute (TII)](https://www.tii.ae/) (_January 2023 - Present_)**
+* Developed both USVs and AUVs for diverse applications, including autonomous water transport, defense, and AUV launch/recovery operations.
 * Focused on integrating advanced perception systems to improve situational awareness and autonomy.
 * Played a key role in advancing innovative solutions for autonomous maritime systems.
 
-**Research Engineer @ [ENSTA Paris, Polytechnic Institute of Paris](https://www.ensta-paris.fr/en/node) (_Decembre 2020 - Decembre 2021_)**
+**Research Engineer @ [ENSTA Paris, Polytechnic Institute of Paris](https://www.ensta-paris.fr/) (_Decembre 2021 - Decembre 2022_)**
 * Led the development and optimization of academic robotic platforms (UGV, UAV), enhancing research capabilities in autonomous systems.
 * Designed and implemented control and perception systems for autonomous surface and underwater vehicles.
-* Developped a custom HMI solution from scratch to operate multiple robots in the context of a collaborative reconnaissance mission.
+* Developed a custom HMI solution from scratch to operate multiple robots in the context of a collaborative reconnaissance mission.
 
 ## Projects
 
 ### 2024: TII Autonomous Surface Vehicle (USV) Development Contribution
 _Technology Innovation Institute_
 
-![Perfect weather for cruising at sea](/assets/img/abu_al_abyad.jpg)
+![Perfect weather for navigating at sea](/assets/img/abu_al_abyad.jpg)
 
 * Engineered robust systems for efficient and safe deployment of USVs in diverse operational settings.
-* Developed perception solutions to handle obtacles and navigate safely.
+* Developed perception solutions to handle obstacles and navigate safely.
 
 ### 2022: Challenge CoHoMa 2022 Participation
 _ENSTA Paris, U2IS Team_
@@ -36,7 +36,6 @@ _ENSTA Paris, U2IS Team_
 ![Ready to start the CoHoMa challenge reconnaissance mission](/assets/img/cohoma.jpg)
 
 * Contributed to the deployment of a multi-robot reconnaissance system in realistic combat scenarios.
-
 * Achieved recognition for excellence with **two awards**: Human-Machine Interface and Combative Spirit.
 
 ## Skills
