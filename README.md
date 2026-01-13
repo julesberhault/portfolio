@@ -1,7 +1,5 @@
 # Marine Robotics Engineer
 
-#### Technical Skills: Python, C++, Git, Docker, Jetson, ROS
-
 ## Education
 - M.S., Autonomous Mobile Robotics Engineering | [École Nationale Supérieure de Techniques Avancées de Bretagne](https://www.ensta-bretagne.fr/en) (_July 2021_)
 - B.S., Robotics Engineering | [École Nationale Supérieure de Techniques Avancées de Bretagne](https://www.ensta-bretagne.fr/en) (_June 2019_)
