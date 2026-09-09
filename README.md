@@ -14,17 +14,17 @@ Marine robotics engineer specializing in autonomous surface and underwater vehic
 
 ## Work Experience
 
-**Senior Engineer — Marine Robotics @ [Technology Innovation Institute (TII)](https://www.tii.ae/)**<br>_Abu Dhabi, UAE (_January 2023 - Present_)_
+**Senior Engineer — Marine Robotics @ [Technology Innovation Institute (TII)](https://www.tii.ae/)**<br>_Abu Dhabi, UAE (_January 2023 - Present_)
 * Developed both USVs and AUVs for diverse applications, including autonomous water transport, defense, and AUV launch/recovery operations.
 * Focused on integrating advanced perception systems to improve situational awareness and autonomy.
 * Played a key role in advancing innovative solutions for autonomous maritime systems.
 
-**Research Engineer — Autonomous Robotics @ [ENSTA, Polytechnic Institute](https://www.ensta.fr/en)**<br>_Paris, France (_December 2021 - December 2022_)_
+**Research Engineer — Autonomous Robotics @ [ENSTA, Polytechnic Institute](https://www.ensta.fr/en)**<br>_Paris, France (_December 2021 - December 2022_)
 * Led the development and optimization of academic robotic platforms (UGV, UAV), enhancing research capabilities in autonomous systems.
 * Designed and implemented control and perception systems for autonomous surface and underwater vehicles.
 * Developed a custom HMI solution from scratch to operate multiple robots in the context of a collaborative reconnaissance mission.
 
-**Intern — Marine Robotics @ [Exail](https://www.exail.com/product-range/drix-series-uncrewed-surface-vessels)**<br>_Toulon, France (_February 2021 - August 2021_)_
+**Intern — Marine Robotics @ [Exail](https://www.exail.com/product-range/drix-series-uncrewed-surface-vessels)**<br>_Toulon, France (_February 2021 - August 2021_)
 * Contributed to research and development of the CortiX Autonomy system for the DriX program.
 * Developed a localization solution for maritime obstacle detection using single monocular camera perception.
 
