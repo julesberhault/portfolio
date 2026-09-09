@@ -3,7 +3,7 @@
 
 <img height="10" src="https://cdn.simpleicons.org/gmail/ea4335" /> [julesberhault@gmail.com](mailto:julesberhault@gmail.com) &nbsp;|&nbsp; <img height="10" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /> [LinkedIn](https://www.linkedin.com/in/jules-berhault-726a6a166/) &nbsp;|&nbsp; <img height="10" src="https://cdn.simpleicons.org/github/181717" /> [GitHub](https://github.com/julesberhault)
 
-Marine robotics engineer specializing in autonomous surface and underwater vehicles (USVs/AUVs), with experience spanning perception, control, sensor fusion, and multi-robot coordination for defense and maritime applications. Currently developing autonomous maritime systems at the Technology Innovation Institute in Abu Dhabi.
+Marine robotics engineer specializing in autonomous surface and underwater vehicles, with experience spanning perception, control, sensor fusion, and multi-robot coordination for defense and maritime applications. Currently developing autonomous maritime systems at the Technology Innovation Institute in Abu Dhabi.
 
 ## Education
 **A.M. — Autonomous Mobile Robotics @ [ENSTA](https://www.ensta.fr/en/training/advanced-master-multimodal-and-autonomous-artificial-intelligence)**<br>_Brest, France (_July 2021_)
@@ -30,16 +30,16 @@ Marine robotics engineer specializing in autonomous surface and underwater vehic
 
 ## Projects
 
-### 2026: Autonomous Surface Vehicle (ASV) Development — Autonomously Supervised
+### 2026: Unmanned Surface Vehicle (USV) Development — Autonomously Supervised
 _Technology Innovation Institute, Abu Dhabi_
 
 ![Principal USV, the Detector, serves as the flagship for marine robotics research at the Technology Innovation Institute](/assets/img/detector.jpg)
 
-* Leading development of a 17-meter, 1,800 hp waterjet-propelled ASV integrating GNSS, INS, LiDAR, radar, and EO/IR sensors into a unified autonomy stack.
+* Leading development of a 17-meter, 1,800 hp waterjet-propelled USV integrating GNSS, INS, LiDAR, radar, and EO/IR sensors into a unified autonomy stack.
 * Advanced the platform from remote operation to autonomous supervision, enabling a single operator to oversee mission execution rather than directly pilot the vessel.
 * Engineered perception and decision-making systems for reliable obstacle detection and safe navigation under high-level human supervision.
 
-### 2025: Autonomous Underwater Vehicle (AUV) Development — Remotely Operated
+### 2025: Autonomous Underwater Vehicle (USV) Development — Remotely Operated
 _Technology Innovation Institute, Abu Dhabi_
 
 ![Hands-on ROV's ground control station at Oceaneering Stavanger, Norway](/assets/img/ground_control_station.jpg)
@@ -47,12 +47,12 @@ _Technology Innovation Institute, Abu Dhabi_
 * Adapted a modified GraalTech X-300 AUV platform, integrating forward-looking sonar (FLS) and a front-facing camera for underwater perception and obstacle avoidance.
 * Developed remote-operation control and monitoring capabilities to support subsea inspection and navigation missions.
 
-### 2024: Autonomous Surface Vehicle (ASV) Development — Remotely Operated
+### 2024: Unmanned Surface Vehicle (USV) Development — Remotely Operated
 _Technology Innovation Institute, Abu Dhabi_
 
 ![Ideal weather conditions for a ride on remote-controlled USV: Nukhada](/assets/img/abu_al_abyad.jpg)
 
-* Developed a 9-meter outboard-engine ASV equipped with GNSS, INS, speed log, EO/IR, and LiDAR sensors for remote-controlled maritime operations.
+* Developed a 9-meter outboard-engine USV equipped with GNSS, INS, speed log, EO/IR, and LiDAR sensors for remote-controlled maritime operations.
 * Engineered perception and safety systems for efficient, safe deployment across diverse operational settings.
 
 ### 2022: Challenge CoHoMa 2022 Participation
