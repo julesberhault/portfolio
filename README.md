@@ -6,25 +6,25 @@
 Marine robotics engineer specializing in autonomous surface and underwater vehicles, with experience spanning perception, control, sensor fusion, and multi-robot coordination for defense and maritime applications. Currently developing autonomous maritime systems at the Technology Innovation Institute in Abu Dhabi.
 
 ## Education
-**A.M. — Autonomous Mobile Robotics @ [ENSTA](https://www.ensta.fr/en/training/advanced-master-multimodal-and-autonomous-artificial-intelligence)**<br>_Brest, France (_July 2021_)
+**A.M. — Autonomous Mobile Robotics @ [ENSTA](https://www.ensta.fr/en/training/advanced-master-multimodal-and-autonomous-artificial-intelligence)**<br>_Brest, France (July 2021_)
 * Robotics, neural network, deep learning and perception for autonomous systems
 
-**M.Sc. — Engineering @ [ENSTA](https://www.ensta.fr/en/find-my-training/msc-engineering-diplome-dingenieur)**<br>_Brest, France (_June 2019_)
+**M.Sc. — Engineering @ [ENSTA](https://www.ensta.fr/en/find-my-training/msc-engineering-diplome-dingenieur)**<br>_Brest, France (June 2019_)
 * Mathematics, Mechanics, Energy, Digital Sciences, and Humanities
 
 ## Work Experience
 
-**Senior Engineer — Marine Robotics @ [Technology Innovation Institute (TII)](https://www.tii.ae/)**<br>_Abu Dhabi, UAE (_January 2023 - Present_)
+**Senior Engineer — Marine Robotics @ [Technology Innovation Institute (TII)](https://www.tii.ae/)**<br>_Abu Dhabi, UAE (January 2023 - Present_)
 * Developed both USVs and AUVs for diverse applications, including autonomous water transport, defense, and AUV launch/recovery operations.
 * Focused on integrating advanced perception systems to improve situational awareness and autonomy.
 * Played a key role in advancing innovative solutions for autonomous maritime systems.
 
-**Research Engineer — Autonomous Robotics @ [ENSTA, Polytechnic Institute](https://www.ensta.fr/en)**<br>_Paris, France (_December 2021 - December 2022_)
+**Research Engineer — Autonomous Robotics @ [ENSTA, Polytechnic Institute](https://www.ensta.fr/en)**<br>_Paris, France (December 2021 - December 2022_)
 * Led the development and optimization of academic robotic platforms (UGV, UAV), enhancing research capabilities in autonomous systems.
 * Designed and implemented control and perception systems for autonomous surface and underwater vehicles.
 * Developed a custom HMI solution from scratch to operate multiple robots in the context of a collaborative reconnaissance mission.
 
-**Intern — Marine Robotics @ [Exail](https://www.exail.com/product-range/drix-series-uncrewed-surface-vessels)**<br>_Toulon, France (_February 2021 - August 2021_)
+**Intern — Marine Robotics @ [Exail](https://www.exail.com/product-range/drix-series-uncrewed-surface-vessels)**<br>_Toulon, France (February 2021 - August 2021_)
 * Contributed to research and development of the CortiX Autonomy system for the DriX program.
 * Developed a localization solution for maritime obstacle detection using single monocular camera perception.
 
