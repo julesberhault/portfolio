@@ -72,15 +72,52 @@ _ENSTA Paris, Polytechnic Institute of Paris, Paris_
 * Enabled a single operator to monitor and coordinate autonomous surface, ground, and aerial platforms in the field, directly supporting the CoHoMa 2022 mission above.
 
 ## Skills
-| Category | Details |
-|---|---|
-| **Frameworks** | Linux, Docker, CUDA, ROS2, Gazebo |
-| **Languages** | C++, Python, Bash, JavaScript, HTML & Mermaid |
-| **Project developments** | Concept design, technical design, procurement, fabrication & test
-| **Robotics** | Perception systems, control algorithms, sensor fusion, driver development & documentation |
-| **Methods** | Agile, SCRUM & test-driven development (TDD) |
-| **Softwares** | Atlassian suite, Office suite, Visual Studio Code, Claude Code, OpenAI Codex, Blender, SolidWorks & Onshape |
-| **Applications** | Maritime (surface & sub-sea), terrestrial (ground) |
+
+* **Frameworks:**
+	* Linux
+	* Docker
+	* CUDA
+	* ROS2
+	* Gazebo
+
+* **Languages:**
+	* C++
+	* Python
+	* Bash
+	* JavaScript
+	* HTML
+	* Mermaid
+
+* **Project developments:**
+	* Concept design
+	* Technical design
+	* Procurement
+	* Fabrication & test
+
+* **Robotics:**
+	* Perception systems
+	* Control algorithms
+	* Sensor fusion
+	* Driver development & documentation
+
+* **Methods:**
+	* Agile
+	* SCRUM
+	* Test-driven development (TDD)
+
+* **Softwares:**
+	* Atlassian suite
+	* Office suite
+	* Visual Studio Code
+	* Claude Code
+	* OpenAI Codex
+	* Blender
+	* SolidWorks
+	* Onshape
+
+* **Applications:**
+	* Maritime (surface & sub-sea)
+	* Terrestrial (ground)
 
 ## Languages
 * **French:** Native Language
