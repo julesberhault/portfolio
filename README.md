@@ -1,16 +1,15 @@
 # Jules Berhault
 ### Marine Robotics Engineer
 
-<img height="10" src="https://cdn.simpleicons.org/gmail/ea4335" /> [julesberhault@gmail.com](mailto:julesberhault@gmail.com) &nbsp;|&nbsp; <img height="10" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /> [LinkedIn](https://www.linkedin.com/in/jules-berhault-726a6a166/) &nbsp;|&nbsp; <img height="10" src="https://cdn.simpleicons.org/github/181717" />
- [GitHub](https://github.com/julesberhault)
+<img height="10" src="https://cdn.simpleicons.org/gmail/ea4335" /> [julesberhault@gmail.com](mailto:julesberhault@gmail.com) &nbsp;|&nbsp; <img height="10" src="https://upload.wikimedia.org/wikipedia/commons/8/81/LinkedIn_icon.svg" /> [LinkedIn](https://www.linkedin.com/in/jules-berhault-726a6a166/) &nbsp;|&nbsp; <img height="10" src="https://cdn.simpleicons.org/github/181717" /> [GitHub](https://github.com/julesberhault)
 
 Marine robotics engineer specializing in autonomous surface and underwater vehicles (USVs/AUVs), with experience spanning perception, control, sensor fusion, and multi-robot coordination for defense and maritime applications. Currently developing autonomous maritime systems at the Technology Innovation Institute in Abu Dhabi.
 
 ## Education
-**A.M. — Autonomous Mobile Robotics @ [ENSTA](https://www.ensta.fr/en/training/advanced-master-multimodal-and-autonomous-artificial-intelligence)**<br>_Brest, France (_July 2021_)_
+**A.M. — Autonomous Mobile Robotics @ [ENSTA](https://www.ensta.fr/en/training/advanced-master-multimodal-and-autonomous-artificial-intelligence)**<br>_Brest, France (_July 2021_)
 * Robotics, neural network, deep learning and perception for autonomous systems
 
-**M.Sc. — Engineering @ [ENSTA](https://www.ensta.fr/en/find-my-training/msc-engineering-diplome-dingenieur)**<br>_Brest, France (_June 2019_)_
+**M.Sc. — Engineering @ [ENSTA](https://www.ensta.fr/en/find-my-training/msc-engineering-diplome-dingenieur)**<br>_Brest, France (_June 2019_)
 * Mathematics, Mechanics, Energy, Digital Sciences, and Humanities
 
 ## Work Experience
@@ -75,21 +74,24 @@ _ENSTA Paris, Polytechnic Institute of Paris, Paris_
 ## Skills
 | Category | Details |
 |---|---|
-| **Tools** | Linux, Docker, Jetson, ROS2, Gazebo |
-| **Languages** | C++, Python, Bash |
-| **Robotics** | Perception systems, control algorithms, sensor fusion |
-| **Marine Applications** | Autonomous surface/underwater vehicles, multi-robot coordination, system integration |
+| **Frameworks** | Linux, Docker, CUDA, ROS2, Gazebo |
+| **Languages** | C++, Python, Bash, JavaScript, HTML & Mermaid |
+| **Project developments** | Concept design, technical design, procurement, fabrication & test
+| **Robotics** | Perception systems, control algorithms, sensor fusion, driver development & documentation |
+| **Methods** | Agile, SCRUM & test-driven development (TDD) |
+| **Softwares** | Atlassian suite, Office suite, Visual Studio Code, Claude Code, OpenAI Codex, Blender, SolidWorks & Onshape |
+| **Applications** | Maritime (surface & sub-sea), terrestrial (ground) |
 
 ## Languages
 * **French:** Native Language
 * **English:** Bilingual
 * **Spanish:** Limited Working Proficiency
 
-## Achievements & Certifications
-* **Light Boat License** in France, UAE and International (_< 12 meter, Tourism_)
+## Certifications
 * **Driving License** (_since 2015_)
-* **TOEIC Certificate** (_2021_)
+* **Boat License** in France, UAE and International (_since 2022_)
 * **BOSIET** (_2024_)
+* **HSE trainings** (_fire-fight, laser, high-voltage and hasard identification_)
 
 ## Publications & Presentations
-* "Development and Optimization of a Target Detection and Tracking System at Sea", [M.S. Thesis], _2021_
+1. "Development and Optimization of a Target Detection and Tracking System at Sea", [M.S. Thesis], _2021_
