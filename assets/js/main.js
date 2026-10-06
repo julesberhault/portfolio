@@ -51,19 +51,47 @@ const sectionIO = new IntersectionObserver((entries) => {
   if (el) sectionIO.observe(el);
 });
 
-const reels = [...document.querySelectorAll('.counter__reel')];
-reels.forEach((r) => {
-  r.innerHTML = Array.from({ length: 10 }, (_, i) => `<span>${i}</span>`).join('');
+// Mechanical tape counter. Each reel is 9,0,1,…,9,0 so a digit wrapping 9→0 (or 0→9)
+// keeps rolling the same way as the scroll, then snaps silently, instead of
+// spinning back through every digit.
+const reels = [...document.querySelectorAll('.counter__reel')].map((el) => {
+  el.innerHTML = ['9', ...'0123456789', '0'].map((d) => `<span>${d}</span>`).join('');
+  const reel = { el, digit: 0, snap: null };
+  el.style.setProperty('--d', 1);
+  el.addEventListener('transitionend', () => {
+    if (reel.snap === null) return;
+    el.style.transition = 'none';
+    el.style.setProperty('--d', reel.snap);
+    void el.offsetHeight;
+    el.style.transition = '';
+    reel.snap = null;
+  });
+  return reel;
 });
-let lastCount = -1;
+let lastCount = 0;
 function updateChrome() {
   nav.classList.toggle('is-solid', window.scrollY > 24);
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const v = Math.round(clamp(window.scrollY / Math.max(1, max), 0, 1) * 999);
   if (v === lastCount) return;
+  const up = v > lastCount;
   lastCount = v;
   const digits = pad(v, 3);
-  reels.forEach((r, i) => r.style.setProperty('--d', digits[i]));
+  reels.forEach((reel, i) => {
+    const d = Number(digits[i]);
+    if (d === reel.digit) return;
+    if (up && d === 0 && reel.digit === 9) {
+      reel.el.style.setProperty('--d', 11);
+      reel.snap = 1;
+    } else if (!up && d === 9 && reel.digit === 0) {
+      reel.el.style.setProperty('--d', 0);
+      reel.snap = 10;
+    } else {
+      reel.el.style.setProperty('--d', d + 1);
+      reel.snap = null;
+    }
+    reel.digit = d;
+  });
 }
 
 /* ---------- Reveals and counters ---------- */
@@ -132,8 +160,9 @@ if (crt) {
 }
 
 if (crt) {
+  // touchend and click count as user activation on iOS (touchstart does not).
   const resume = () => crt.resumeVideos();
-  window.addEventListener('touchstart', resume, { passive: true, once: true });
+  window.addEventListener('touchend', resume, { passive: true, once: true });
   window.addEventListener('click', resume, { once: true });
 }
 
@@ -272,7 +301,7 @@ let mdtVisible = false;
 if (mdtScreen) {
   crt.setCanvasSource(mdtScreen, mdtCanvas);
 } else {
-  mdtCanvas.className = 'screen__gl';
+  mdtCanvas.className = 'screen__sim';
   mdtCanvas.setAttribute('aria-hidden', 'true');
   mdtEl.append(mdtCanvas);
 }
@@ -302,8 +331,8 @@ let settled = false;
 function sizeSchool() {
   const r = sonarEl.getBoundingClientRect();
   if (r.width < 2 || r.height < 2) return;
-  // Device-pixel resolution keeps the strokes crisp, capped at about 4 MP.
-  const s = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(4e6 / (r.width * r.height)));
+  // Up to 1.5× device pixels: clean edges without looking cut-out, capped at about 3 MP.
+  const s = Math.min(window.devicePixelRatio || 1, 1.5, Math.sqrt(3e6 / (r.width * r.height)));
   school.resize(r.width * s, r.height * s, s);
   // Keep the school in the open water beside the timeline, never under it.
   const tl = document.querySelector('.experience .timeline');
@@ -343,7 +372,9 @@ if (!reduced) {
   }, { threshold: [0, 0.35, 0.6] }).observe(sonarEl);
 
   const experience = document.getElementById('experience');
+  // Mouse only: on touchscreens a finger scrolls the page, so it never pushes fish.
   const predator = (e) => {
+    if (e.pointerType !== 'mouse') return;
     const r = sonarEl.getBoundingClientRect();
     const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
     const px = ((e.clientX - r.left) / r.width) * school.w;
@@ -359,9 +390,7 @@ if (!reduced) {
     p.y = py;
   };
   experience.addEventListener('pointermove', predator);
-  experience.addEventListener('pointerdown', predator);
   experience.addEventListener('pointerleave', () => { school.pred.on = false; });
-  window.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') school.pred.on = false; });
 }
 
 let fishVisible = false;

@@ -215,6 +215,13 @@ export class CRT {
     });
     if (!gl) throw new Error('WebGL2 unavailable');
     this.gl = gl;
+    // If a phone's GPU drops the context, fall back to the plain photos and videos.
+    this.lost = false;
+    this.glc.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      this.lost = true;
+      document.documentElement.classList.remove('has-crt');
+    });
     this.crt = program(gl, CRT_FRAG);
     this.field = program(gl, FIELD_FRAG);
 
@@ -418,8 +425,13 @@ export class CRT {
     s.tex = s.tex || this.texture();
   }
 
+  // Called from a real tap or click: playing every monitor once inside the gesture
+  // unlocks them on phones that block muted autoplay (iOS Low Power Mode).
   resumeVideos() {
-    for (const s of this.screens) if (s.video && s.visible && s.video.paused) s.video.play().catch(() => {});
+    for (const s of this.screens) {
+      if (!s.video) continue;
+      s.video.play().then(() => { if (!s.visible) s.video.pause(); }).catch(() => {});
+    }
   }
 
   setOverlay(s, canvas) {
@@ -441,6 +453,7 @@ export class CRT {
   }
 
   frame(t, dt) {
+    if (this.lost) return;
     const motion = this.reduced ? 0 : 1;
     const ft = this.reduced ? 12.5 : t;
 

@@ -1,4 +1,4 @@
-// Fish banks drawn as crisp amber strokes over the sonar's water field.
+// Fish banks drawn as amber water drops, fading toward the tail, over the sonar's water field.
 // Several loose, restless schools: each fish wanders on its own heading and pace,
 // a shifting current pushes them about, sudden startles scatter part of a bank,
 // ripples cross the banks, and the pointer pushes fish aside and drags them along.
@@ -25,6 +25,7 @@ export class School {
     this.g = new Uint8Array(max);
     this.alive = new Uint8Array(max);
     this.next = new Int32Array(max);
+    this.shape = null;
     // Each bank has its own size, pace and wandering path.
     this.bank = Array.from({ length: groups }, (_, k) => ({
       size: 0.8 + ((k * 0.37) % 0.55),
@@ -294,36 +295,55 @@ export class School {
     }
   }
 
+  // One shared water-drop shape in local units: a round head of radius 1 at the
+  // origin, tapering to a point at x = -DROP_TAIL. The gradient fades it linearly
+  // from the back of the round head to the tail tip.
+  drop() {
+    if (this.shape) return this.shape;
+    const T = 4.6;
+    const path = new Path2D();
+    path.moveTo(0, -1);
+    path.arc(0, 0, 1, -Math.PI / 2, Math.PI / 2);
+    path.quadraticCurveTo(-T * 0.35, 1, -T, 0);
+    path.quadraticCurveTo(-T * 0.35, -1, 0, -1);
+    path.closePath();
+    const fade = (rgb) => {
+      const g = this.ctx.createLinearGradient(0, 0, -T, 0);
+      g.addColorStop(0, `rgba(${rgb}, 1)`);
+      g.addColorStop(1, `rgba(${rgb}, 0)`);
+      return g;
+    };
+    this.shape = { path, amber: fade('255, 180, 58'), flash: fade('255, 244, 222') };
+    return this.shape;
+  }
+
   draw() {
     const { ctx, w, h, s } = this;
+    const { path, amber, flash } = this.drop();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, w, h);
-        for (let i = 0; i < this.max; i++) {
+    for (let i = 0; i < this.max; i++) {
       if (!this.alive[i]) continue;
       const zi = this.z[i];
       const fl = this.fl[i];
-      const size = this.bank[this.g[i]].size;
-      const L = (9 + 9 * zi) * size * s;
-      const W = L * 0.28;
-      const wag = Math.sin(this.ph[i]);
-      const tb = wag * W * 0.45;
-      const bend = wag * W * 0.5;
+      const r = (1.5 + 1.2 * zi) * this.bank[this.g[i]].size * s;
+      const speed = Math.hypot(this.vx[i], this.vy[i]) / s;
+      // Faster fish stretch a little, like a drop elongating.
+      const sx = r * (0.9 + 0.12 * speed);
       const c = Math.cos(this.ang[i]);
       const sn = Math.sin(this.ang[i]);
-      const gr = Math.round(176 + 70 * fl);
-      const bl = Math.round(58 + 170 * fl);
-      const alpha = 0.38 + 0.55 * zi;
-      ctx.setTransform(c, sn, -sn, c, this.x[i], this.y[i]);
-
-      // A slim, tapered body that bends as the fish swims: no fins, no eye.
-      const half = W * 0.55;
-      ctx.fillStyle = `rgba(255, ${gr}, ${bl}, ${alpha})`;
-      ctx.beginPath();
-      ctx.moveTo(L * 0.5, 0);
-      ctx.quadraticCurveTo(L * 0.05, -half - bend * 0.6, -L * 0.5, tb);
-      ctx.quadraticCurveTo(L * 0.05, half - bend * 0.6, L * 0.5, 0);
-      ctx.fill();
+      const alpha = 0.5 + 0.45 * zi;
+      ctx.setTransform(c * sx, sn * sx, -sn * r, c * r, this.x[i], this.y[i]);
+      ctx.globalAlpha = alpha;
+      ctx.fillStyle = amber;
+      ctx.fill(path);
+      if (fl > 0.05) {
+        ctx.globalAlpha = alpha * fl * 0.85;
+        ctx.fillStyle = flash;
+        ctx.fill(path);
+      }
     }
+    ctx.globalAlpha = 1;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 }
