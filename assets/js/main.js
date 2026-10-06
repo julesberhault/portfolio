@@ -93,6 +93,9 @@ function countUp(el) {
   const plain = 'plain' in el.dataset;
   const start = plain ? end - 27 : 0;
   const fmt = (n) => (plain ? String(n) : n.toLocaleString('en-US'));
+  // Reserve the final width so rolling digits never reflow the line (no scroll jumps).
+  el.style.display = 'inline-block';
+  el.style.minWidth = `${el.getBoundingClientRect().width}px`;
   const t0 = performance.now();
   const dur = 1300;
   const tick = (now) => {
@@ -127,8 +130,12 @@ if (crt) {
   });
 }
 
-let scrollY0 = window.scrollY;
-let scrollV = 0;
+if (crt) {
+  const resume = () => crt.resumeVideos();
+  window.addEventListener('touchstart', resume, { passive: true, once: true });
+  window.addEventListener('click', resume, { once: true });
+}
+
 
 /* ---------- Hero: the name drawn on the tube, and the timecode ---------- */
 
@@ -211,8 +218,8 @@ const frameNum = tape.querySelector('[data-frame]');
 const tapeTc = tape.querySelector('[data-tape-tc]');
 const FRAMES = Number(tapeScreenEl.dataset.frames);
 const frames = [];
+const tapeStick = tape.querySelector('.tape__stick');
 let lastIdx = -1;
-let lastIdxT = 0;
 let shownFrame = null;
 
 function loadFrames() {
@@ -233,22 +240,21 @@ new IntersectionObserver((entries) => {
 function updateTape(t) {
   const r = tape.getBoundingClientRect();
   if (r.bottom < -100 || r.top > window.innerHeight + 100) return;
-  const p = reduced ? 0.33 : clamp(-r.top / Math.max(1, r.height - window.innerHeight), 0, 1);
+  // Use the sticky frame's own height (100svh), which stays put when a phone's
+  // address bar shows or hides, so the tape never steps backwards mid-scroll.
+  const view = tapeStick.offsetHeight || window.innerHeight;
+  const p = reduced ? 0.33 : clamp(-r.top / Math.max(1, r.height - view), 0, 1);
   const idx = Math.round(p * (FRAMES - 1));
   const on = Math.min(steps.length - 1, Math.floor(p * steps.length * 0.9999));
   steps.forEach((li, i) => li.classList.toggle('is-on', reduced || i === on));
-  let track = 0;
   if (idx !== lastIdx) {
-    const dtIdx = Math.max(0.001, t - lastIdxT);
-    track = clamp(Math.abs(idx - lastIdx) / dtIdx / 60, 0, 1);
-    lastIdxT = t;
     lastIdx = idx;
     frameNum.textContent = pad(idx + 1);
     tapeTc.textContent = timecode(idx / 25);
   }
   const img = frames[idx];
   if (!img) return;
-  if (tapeScreen) crt.setFrame(tapeScreen, img, track);
+  if (tapeScreen) crt.setFrame(tapeScreen, img);
   else if (img.complete && shownFrame !== img) {
     tapeImg.src = img.src;
     shownFrame = img;
@@ -354,17 +360,12 @@ function frame(now) {
   tPrev = now;
   const t = (now - tStart) / 1000;
 
-  const y = window.scrollY;
-  const v = Math.abs(y - scrollY0) / Math.max(dt, 0.001);
-  scrollY0 = y;
-  scrollV += (v - scrollV) * Math.min(1, dt * 8);
 
   updateChrome();
   updateTape(t);
 
   if (tcEl && (!heroScreen || heroScreen.visible) && !reduced) tcEl.textContent = timecode(t);
 
-  if (crt && !reduced && scrollV > 600) crt.pulse(clamp((scrollV - 600) / 4000, 0, 0.9));
 
   if (!reduced && (fishVisible || school.count > 0)) {
     school.step(dt);

@@ -79,8 +79,8 @@ uniform sampler2D uWater;
 uniform vec2 uRes;
 uniform vec2 uScale;
 uniform vec2 uOffset;
-uniform float uTime, uDist, uGlitch, uTrack;
-uniform float uCurv, uFill, uMotion, uDpr, uHasOver, uLod;
+uniform float uTime, uDist, uGlitch;
+uniform float uCurv, uFill, uMotion, uDpr, uHasOver, uLod, uPlain;
 ${COMMON}
 const mat3 TO_YIQ = mat3(0.299, 0.596, 0.211, 0.587, -0.274, -0.523, 0.114, -0.322, 0.312);
 const mat3 TO_RGB = mat3(1.0, 1.0, 1.0, 0.956, -0.272, -1.106, 0.621, -0.647, 1.703);
@@ -99,6 +99,11 @@ vec3 src(vec2 uv) {
 
 void main() {
   vec2 uv = vUv;
+  // Plain screens (the fish sonar) skip the tube entirely.
+  if (uPlain > 0.5) {
+    o = vec4(src(uv), 1.0);
+    return;
+  }
   vec2 px = uv * uRes;
   vec2 cc = uv * 2.0 - 1.0;
   float r2 = dot(cc, cc);
@@ -107,11 +112,11 @@ void main() {
 
 
   float edge = r2 * 0.5;
-  float split = 0.0006 + 0.0024 * edge + 0.011 * uDist + 0.008 * uTrack + 0.012 * uGlitch;
+  float split = 0.0006 + 0.0024 * edge + 0.011 * uDist + 0.012 * uGlitch;
   vec2 so = vec2(split, 0.0) + cc * 0.0012 * edge;
   vec3 col = vec3(src(suv + so).r, src(suv).g, src(suv - so).b);
 
-  float bw = (2.0 + 4.0 * uDist + 6.0 * uTrack) * uDpr / uRes.x;
+  float bw = (2.0 + 4.0 * uDist) * uDpr / uRes.x;
   vec3 yiq = TO_YIQ * col;
   vec3 a1 = TO_YIQ * src(suv - vec2(bw, 0.0));
   vec3 a2 = TO_YIQ * src(suv - vec2(bw * 2.5, 0.0));
@@ -297,6 +302,7 @@ export class CRT {
       fx,
       fy: el.dataset.fit === 'hero' ? 0 : fy,
       curv: Number(el.dataset.curv || 0.06),
+      plain: 'plain' in el.dataset,
       img: type === 'image' ? media : null,
       video: type === 'video' ? media : null,
       tex: null,
@@ -304,10 +310,8 @@ export class CRT {
       ih: 0,
       ready: false,
       visible: false,
-      on: false,
       dist: 0,
       glitch: 0,
-      track: 0,
       overlay: null,
       field: null,
       dirty: true,
@@ -332,14 +336,20 @@ export class CRT {
     }
     if (s.video) {
       s.tex = this.texture();
-      // Upload only when the video has a new frame, not on every animation frame.
-      if ('requestVideoFrameCallback' in s.video) {
-        s.fresh = true;
-        const onFrame = () => {
-          s.fresh = true;
-          s.video.requestVideoFrameCallback(onFrame);
+      s.lastTime = -1;
+      // Show the poster until the video has frames (or if autoplay is blocked).
+      if (s.video.poster) {
+        const poster = new Image();
+        poster.decoding = 'async';
+        poster.onload = () => {
+          if (s.lastTime >= 0) return;
+          this.upload(s.tex, poster);
+          s.iw = poster.naturalWidth;
+          s.ih = poster.naturalHeight;
+          s.ready = true;
+          s.dirty = true;
         };
-        s.video.requestVideoFrameCallback(onFrame);
+        poster.src = s.video.poster;
       }
     }
 
@@ -353,8 +363,9 @@ export class CRT {
 
   bindEvents(s) {
     const host = s.el.closest('.bezel, .hero, .tape__stick, .interlude, .experience, .contact') || s.el;
-    host.addEventListener('pointerenter', () => {
-      if (this.reduced) return;
+    host.addEventListener('pointerenter', (e) => {
+      // Touches that start a scroll also fire pointerenter; only a mouse hover splits colour.
+      if (this.reduced || e.pointerType !== 'mouse') return;
       s.dist = Math.max(s.dist, 0.55);
     });
     host.addEventListener('click', (e) => {
@@ -388,7 +399,7 @@ export class CRT {
     s.dirty = true;
   }
 
-  setFrame(s, img, track) {
+  setFrame(s, img) {
     if (!img || !img.complete || !img.naturalWidth) return;
     if (s.frame !== img) {
       s.tex = s.tex || this.texture();
@@ -399,15 +410,14 @@ export class CRT {
       s.ready = true;
       s.dirty = true;
     }
-    s.track = Math.max(s.track, track);
+  }
+
+  resumeVideos() {
+    for (const s of this.screens) if (s.video && s.visible && s.video.paused) s.video.play().catch(() => {});
   }
 
   setOverlay(s, canvas) {
     s.overlay = { canvas, tex: null };
-  }
-
-  pulse(amount) {
-    for (const s of this.screens) if (s.visible) s.dist = Math.max(s.dist, amount);
   }
 
   renderField(s, mode, target, t) {
@@ -439,7 +449,6 @@ export class CRT {
       if (!this.reduced) {
         s.dist *= Math.exp(-dt * 3.2);
         s.glitch = Math.max(0, s.glitch - dt / 0.15);
-        s.track *= Math.exp(-dt * 5);
       }
       if (this.reduced && !s.dirty && !(s.overlay && s.overlay.dirty)) continue;
       this.draw(s, ft, motion);
@@ -459,9 +468,10 @@ export class CRT {
       this.renderField(s, s.type === 'water' ? 1 : 2, s.field, t);
       tex = s.field.tex;
     } else {
-      if (s.video && s.visible && s.video.readyState >= 2 && s.fresh !== false) {
+      // Upload a video frame only when playback has moved on.
+      if (s.video && s.visible && s.video.readyState >= 2 && s.video.currentTime !== s.lastTime) {
         this.upload(s.tex, s.video);
-        if (s.fresh) s.fresh = false;
+        s.lastTime = s.video.currentTime;
         s.iw = s.video.videoWidth;
         s.ih = s.video.videoHeight;
         s.ready = true;
@@ -538,7 +548,7 @@ export class CRT {
     gl.uniform1f(u.uTime, t);
     gl.uniform1f(u.uDist, s.dist);
     gl.uniform1f(u.uGlitch, s.glitch);
-    gl.uniform1f(u.uTrack, Math.min(1, s.track));
+    gl.uniform1f(u.uPlain, s.plain ? 1 : 0);
     gl.uniform1f(u.uCurv, s.curv);
     gl.uniform1f(u.uFill, fitted.fill ? 1 : 0);
     gl.uniform1f(u.uMotion, motion);

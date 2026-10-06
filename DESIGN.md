@@ -285,8 +285,7 @@ Chunky hardware keys, confident and plain.
 
 ### Screens and bezels (signature)
 - **Screen:** tube black, 18px corners inside a 10px gunmetal bezel (26px corners), 4:3 or 1:1 for project photos, full-bleed elsewhere. The WebGL2 CRT renderer draws at most two visible screens: barrel curvature, a 3px RGB aperture grille, scanlines every 3 device pixels, bloom on bright areas, edge misconvergence and vignette, a slow roll bar, grain, and YIQ chroma bleed and hue drift at rest. On top of that:
-  - an RGB split driven by pointer entry, a click or tap, and scroll speed;
-  - a wider color smear when the tape is jogged;
+  - an RGB split driven by a mouse hover or a click or tap (never by scrolling or touch-scrolling);
   - a color-split glitch burst (about 150ms, one screen, every 10–20s).
 
   Nothing displaces or shakes the picture: no power-on, degauss wobble, jitter, tearing or flicker (the user asked for them removed). Screens show their picture as soon as they are visible.
@@ -300,6 +299,8 @@ Chunky hardware keys, confident and plain.
   - On phones: the center monitor full width, then a 2×2 grid, with no angle.
 - **Skill keys:** keycap tags carry a 1.05em mark in ink-2 before the label. Languages and tools use brand logos from Simple Icons (CC0), filled. Expertise, methods, domains and lifecycle use Lucide line icons (ISC) at a 1.8 stroke. Gazebo and Onshape have no brand mark, so they use the Lucide box and shapes icons. All marks are inlined in the page's SVG sprite, with no external requests. The project lifecycle is one row of keys joined by chevrons at full width; on phones it stacks vertically with down chevrons.
 - **Paired screens:** two different aspect ratios share one height: a 4fr 4:3 tube beside a 3fr square tube. They stack at 4:3 on phones.
+- **Fish sonar is plain:** this one screen skips the tube (`data-plain`): the water field and crisp fish, with no curvature, scanlines or split.
+- **Flags:** language names in About and Skills carry 1.5×1em inline SVG flags (France, United Kingdom, Spain) with 2px corners and a hairline edge.
 - **Fish banks:** several loose banks (5 on desktop, 3 on mobile; about 480 and 180 fish) drawn as amber phosphor vector strokes (a tapering body and a bright eye, no tail fin) dragging long afterglow trails (14% fade per frame) over the water field. Each bank flocks only with its own kind, with wide spacing and light cohesion. The pointer pushes fish away and drags them along its path.
 
 ### Navigation
