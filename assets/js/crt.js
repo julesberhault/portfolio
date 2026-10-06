@@ -79,7 +79,7 @@ uniform sampler2D uWater;
 uniform vec2 uRes;
 uniform vec2 uScale;
 uniform vec2 uOffset;
-uniform float uTime, uDist, uGlitch;
+uniform float uTime, uDist, uGlitch, uStatic;
 uniform float uCurv, uFill, uMotion, uDpr, uHasOver, uLod, uPlain;
 ${COMMON}
 const mat3 TO_YIQ = mat3(0.299, 0.596, 0.211, 0.587, -0.274, -0.523, 0.114, -0.322, 0.312);
@@ -128,6 +128,13 @@ void main() {
 
   vec3 b = textureLod(uTex, clamp(suv * uScale + uOffset, vec2(0.0005), vec2(0.9995)), uLod).rgb;
   col += max(b - 0.5, 0.0) * 0.6;
+
+  // Channel change: a burst of analog static that clears as the new feed locks in.
+  if (uStatic > 0.001) {
+    float n = hash(floor(px / (2.0 * uDpr)) + fract(uTime * 13.7) * vec2(57.0, 113.0));
+    float band = 0.75 + 0.25 * sin(suv.y * 40.0 + uTime * 90.0);
+    col = mix(col, vec3(n * band), clamp(uStatic, 0.0, 1.0));
+  }
 
   float lines = uRes.y / (3.0 * uDpr);
   float sl = 0.5 + 0.5 * cos(suv.y * lines * 6.2831853);
@@ -319,6 +326,7 @@ export class CRT {
       visible: false,
       dist: 0,
       glitch: 0,
+      static: 0,
       overlay: null,
       field: null,
       dirty: true,
@@ -361,7 +369,7 @@ export class CRT {
     }
 
     this.screens.push(s);
-    this.measure(s);
+    this.measure(s, true);
     this.io.observe(el);
     this.ro.observe(el);
     this.bindEvents(s);
@@ -382,28 +390,48 @@ export class CRT {
     });
   }
 
-  measure(s) {
+  // Resize handling. Mobile browsers fire a burst of resizes while their toolbars
+  // slide in and out; reallocating the canvas on each one clears it and flickers.
+  // During a burst the existing picture is just stretched by CSS (invisible for such
+  // small changes); the backing canvas is rebuilt once the size has settled.
+  measure(s, immediate = false) {
     const r = s.el.getBoundingClientRect();
+    s.cssW = r.width;
+    s.cssH = r.height;
+    if (immediate) {
+      this.resizeCanvas(s);
+      return;
+    }
+    clearTimeout(s.resizeTimer);
+    s.resizeTimer = setTimeout(() => this.resizeCanvas(s), 200);
+  }
+
+  resizeCanvas(s) {
+    const r = s.el.getBoundingClientRect();
+    s.cssW = r.width;
+    s.cssH = r.height;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const area = Math.max(1, r.width * r.height);
     s.scale = Math.min(dpr, Math.sqrt(PIXEL_BUDGET / area));
     const w = Math.max(1, Math.round(r.width * s.scale));
     const h = Math.max(1, Math.round(r.height * s.scale));
-    if (w !== s.w || h !== s.h) {
-      s.w = w;
-      s.h = h;
-      s.canvas.width = w;
-      s.canvas.height = h;
-      for (const key of ['field', 'water']) {
-        if (!s[key]) continue;
-        this.gl.deleteTexture(s[key].tex);
-        this.gl.deleteFramebuffer(s[key].fbo);
-        s[key] = null;
-      }
+    if (w === s.w && h === s.h) return;
+    s.w = w;
+    s.h = h;
+    s.canvas.width = w;
+    s.canvas.height = h;
+    for (const key of ['field', 'water']) {
+      if (!s[key]) continue;
+      this.gl.deleteTexture(s[key].tex);
+      this.gl.deleteFramebuffer(s[key].fbo);
+      s[key] = null;
     }
-    s.cssW = r.width;
-    s.cssH = r.height;
     s.dirty = true;
+    // The resize cleared the canvas: redraw it at once so it never shows blank.
+    if (this.lastT !== undefined && s.visible && !this.lost) {
+      this.draw(s, this.lastT, this.reduced ? 0 : 1);
+      s.dirty = false;
+    }
   }
 
   setFrame(s, img) {
@@ -427,6 +455,14 @@ export class CRT {
 
   // Called from a real tap or click: playing every monitor once inside the gesture
   // unlocks them on phones that block muted autoplay (iOS Low Power Mode).
+  // A monitor switching to its next clip: static and a colour glitch, like a channel change.
+  channelChange(s) {
+    s.lastTime = -1;
+    if (this.reduced) return;
+    s.static = 1;
+    s.glitch = 1;
+  }
+
   resumeVideos() {
     for (const s of this.screens) {
       if (!s.video) continue;
@@ -456,6 +492,7 @@ export class CRT {
     if (this.lost) return;
     const motion = this.reduced ? 0 : 1;
     const ft = this.reduced ? 12.5 : t;
+    this.lastT = ft;
 
     if (!this.reduced && t > this.glitchAt) {
       const live = this.screens.filter((s) => s.visible);
@@ -468,6 +505,7 @@ export class CRT {
       if (!this.reduced) {
         s.dist *= Math.exp(-dt * 3.2);
         s.glitch = Math.max(0, s.glitch - dt / 0.15);
+        s.static = Math.max(0, s.static - dt / 0.45);
       }
       if (this.reduced && !s.dirty && !(s.overlay && s.overlay.dirty)) continue;
       this.draw(s, ft, motion);
@@ -573,6 +611,7 @@ export class CRT {
     gl.uniform1f(u.uTime, t);
     gl.uniform1f(u.uDist, s.dist);
     gl.uniform1f(u.uGlitch, s.glitch);
+    gl.uniform1f(u.uStatic, s.static);
     gl.uniform1f(u.uPlain, s.plain ? 1 : 0);
     gl.uniform1f(u.uCurv, s.curv);
     gl.uniform1f(u.uFill, fitted.fill ? 1 : 0);

@@ -62,6 +62,8 @@ Jules builds real vessels, not just software or simulations. He has taken a 9 m 
   - AUV: 4 m, teleoperated offshore for data acquisition.
   - UGV platforms at ENSTA Paris.
   - DriX H-8 at Exail's robotics division (single-camera detection and tracking).
+- **170 M-Detector (EDGE Group, edgegroup.ae/solutions/170-m-detector, read 2026-10-06):** LOA 17.4 m, beam 4.2 m, draft about 0.85 m. 2 × 900 hp diesel engines and 2 waterjets. Up to 4 h of silent electric propulsion at 5 kt. Deck payload up to 1,000 kg. Manned complement 4 crew.
+- **Detector autonomy suite (confirmed by Jules):** INS, speed log, DVL, FLS (SeapiX), EO/IR, radar, LiDAR, radio communications, 4G, Starlink.
 - **M.S. report (2021, in French):** https://webperso.ensta.fr/jaulin/rapport_pfe_jules_berhault.pdf. It covers horizon-referenced IR ranging for the MDT system, the error study, heave compensation, the coastline-as-horizon correction, coast-distance ray tracing sped up from 70 ms to 0.012 ms, and a MAVROS/ArduPilot interface.
 - **Not available, so never invent:** testimonials, endorsements, client logos, metrics beyond those in the README, or extra publications.
 

@@ -20,6 +20,7 @@ export class School {
     this.ph = new Float32Array(max);
     this.fl = new Float32Array(max);
     this.ang = new Float32Array(max);
+    this.turn = new Float32Array(max);
     this.wa = new Float32Array(max);
     this.sf = new Float32Array(max);
     this.g = new Uint8Array(max);
@@ -219,10 +220,20 @@ export class School {
         const b = this.bank[gi];
         ax += (b.ax - xi) * this.pull;
         ay += (b.ay - yi) * this.pull;
-        if (yi > (zn.y1 + 0.06) * h) ay -= 0.06 * s;
-        if (yi < (zn.y0 - 0.04) * h) ay += 0.06 * s;
+        // Soft floor and ceiling: a force that ramps up smoothly past the band's edge
+        // (no on/off threshold for fish to flicker against).
+        const below = (yi - (zn.y1 + 0.02) * h) / (0.12 * h);
+        const above = ((zn.y0 - 0.02) * h - yi) / (0.12 * h);
+        if (below > 0) ay -= Math.min(1, below) * 0.07 * s;
+        if (above > 0) ay += Math.min(1, above) * 0.07 * s;
         // Stay out from under the text panels.
-        if (av && xi > av[0] * w && xi < av[1] * w) ax += Math.sign(zoneMid - xi) * 0.08 * s;
+        if (av && xi > av[0] * w && xi < av[1] * w) {
+          // Ease out of the text-panel band, strongest at its middle, zero at its edges.
+          const mid = ((av[0] + av[1]) / 2) * w;
+          const half = ((av[1] - av[0]) / 2) * w;
+          const depth = 1 - Math.abs(xi - mid) / half;
+          ax += Math.sign(zoneMid - xi) * (0.03 + 0.07 * depth) * s;
+        }
         const turn = 0.06 * s;
         if (xi < margin) ax += turn * (1 - xi / margin);
         if (xi > w - margin) ax -= turn * (1 - (w - xi) / margin);
@@ -285,7 +296,9 @@ export class School {
       if (da > Math.PI) da -= TAU;
       if (da < -Math.PI) da += TAU;
       this.ang[i] = a;
-      this.fl[i] = Math.min(1, this.fl[i] * Math.pow(0.93, f) + Math.abs(da) * 1.4);
+      // Flash on sustained turns only: a smoothed turn rate, so small heading jitter never flickers.
+      this.turn[i] += (Math.abs(da) - this.turn[i]) * Math.min(1, 0.15 * f);
+      this.fl[i] = Math.min(1, this.fl[i] * Math.pow(0.93, f) + Math.max(0, this.turn[i] - 0.02) * 2);
       this.ph[i] += (0.2 + (sp * 0.09) / s) * f;
 
       if (!this.present && (x[i] < -90 * s || x[i] > w + 90 * s || y[i] < -90 * s || y[i] > h + 90 * s)) {
@@ -296,11 +309,11 @@ export class School {
   }
 
   // One shared water-drop shape in local units: a round head of radius 1 at the
-  // origin, tapering to a point at x = -DROP_TAIL. The gradient fades it linearly
+  // origin, tapering to a point 5.6 radii behind it. The gradient fades it linearly
   // from the back of the round head to the tail tip.
   drop() {
     if (this.shape) return this.shape;
-    const T = 4.6;
+    const T = 5.6;
     const path = new Path2D();
     path.moveTo(0, -1);
     path.arc(0, 0, 1, -Math.PI / 2, Math.PI / 2);

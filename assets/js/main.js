@@ -10,6 +10,32 @@ const coarse = matchMedia('(pointer: coarse)').matches;
 if (coarse) root.classList.add('is-touch');
 
 const pad = (n, l = 2) => String(Math.floor(n)).padStart(l, '0');
+
+/* ---------- Ground-control monitor wall: a playlist of channels ---------- */
+
+const PLAYLIST = [
+  { name: 'gcs-kelp-fish', ch: '04' },
+  { name: 'gcs-seabed', ch: '05' },
+  { name: 'gcs-main', ch: '06' },
+  { name: 'gcs-fan-rocks', ch: '07' },
+  { name: 'gcs-fish', ch: '08' },
+];
+const clipExt = document.createElement('video').canPlayType('video/mp4') ? 'mp4' : 'webm';
+// Random start: shuffle the playlist and give each monitor a different clip.
+const startOrder = PLAYLIST.map((_, i) => i).sort(() => Math.random() - 0.5);
+const monitors = [...document.querySelectorAll('.gcs__mon .screen')].map((el, k) => {
+  const mon = { el, video: el.querySelector('video'), label: el.querySelector('.hud--ch'), idx: startOrder[k % PLAYLIST.length] };
+  tuneMonitor(mon);
+  return mon;
+});
+
+function tuneMonitor(mon) {
+  const clip = PLAYLIST[mon.idx];
+  mon.video.loop = false;
+  mon.video.poster = `assets/vid/web/${clip.name}-poster.webp`;
+  mon.video.src = `assets/vid/web/${clip.name}.${clipExt}`;
+  if (mon.label) mon.label.lastChild.textContent = `CH ${clip.ch}`;
+}
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const timecode = (sec) => {
   const f = Math.floor((sec % 1) * 25);
@@ -159,6 +185,17 @@ if (crt) {
   });
 }
 
+// When a clip ends, the monitor changes channel to the next clip in the playlist.
+monitors.forEach((mon) => {
+  mon.video.addEventListener('ended', () => {
+    mon.idx = (mon.idx + 1) % PLAYLIST.length;
+    tuneMonitor(mon);
+    const screen = screens.get(mon.el);
+    if (screen) crt.channelChange(screen);
+    mon.video.play().catch(() => {});
+  });
+});
+
 if (crt) {
   // touchend and click count as user activation on iOS (touchstart does not).
   const resume = () => crt.resumeVideos();
@@ -234,7 +271,11 @@ function drawHeroName() {
 
 if (heroScreen) {
   document.fonts.load('700 64px Silkscreen').then(drawHeroName, drawHeroName);
-  new ResizeObserver(() => drawHeroName()).observe(hero);
+  let nameTimer;
+  new ResizeObserver(() => {
+    clearTimeout(nameTimer);
+    nameTimer = setTimeout(drawHeroName, 200);
+  }).observe(hero);
 }
 
 /* ---------- Detector tape ---------- */
@@ -243,8 +284,8 @@ const tape = document.querySelector('[data-tape]');
 const tapeScreenEl = tape.querySelector('[data-screen]');
 const tapeScreen = screens.get(tapeScreenEl);
 const tapeImg = tapeScreenEl.querySelector('.screen__media');
-const stepsEl = tape.querySelector('[data-steps]');
-const steps = [...stepsEl.querySelectorAll('li')];
+const tapeCard = tape.querySelector('[data-steps]');
+const steps = [...tapeCard.querySelectorAll('[data-step]')];
 const frameNum = tape.querySelector('[data-frame]');
 const tapeTc = tape.querySelector('[data-tape-tc]');
 const FRAMES = Number(tapeScreenEl.dataset.frames);
@@ -276,9 +317,11 @@ function updateTape(t) {
   const view = tapeStick.offsetHeight || window.innerHeight;
   const p = reduced ? 0.33 : clamp(-r.top / Math.max(1, r.height - view), 0, 1);
   const idx = Math.round(p * (FRAMES - 1));
-  const on = Math.min(steps.length - 1, Math.floor(p * steps.length * 0.9999));
-  steps.forEach((li, i) => li.classList.toggle('is-on', reduced || i === on));
-  stepsEl.style.setProperty('--step', on);
+  // Nothing about the Detector shows at first; as the tape plays the card appears,
+  // then its title, figures and autonomy suite are added one after another.
+  const lit = reduced ? steps.length : Math.floor(p * 0.9999 * (steps.length + 1));
+  steps.forEach((el, i) => el.classList.toggle('is-on', i < lit));
+  tapeCard.classList.toggle('is-empty', lit === 0);
   if (idx !== lastIdx) {
     lastIdx = idx;
     frameNum.textContent = pad(idx + 1);
@@ -366,7 +409,11 @@ function sizeSchool() {
   }
 }
 sizeSchool();
-new ResizeObserver(sizeSchool).observe(sonarEl);
+let schoolTimer;
+new ResizeObserver(() => {
+  clearTimeout(schoolTimer);
+  schoolTimer = setTimeout(sizeSchool, 200);
+}).observe(sonarEl);
 
 if (!reduced) {
   new IntersectionObserver((entries) => {
