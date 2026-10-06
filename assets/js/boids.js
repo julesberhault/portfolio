@@ -1,6 +1,6 @@
 // Fish banks drawn as amber water drops, fading toward the tail, over the sonar's water field.
-// Several loose, restless schools: each fish wanders on its own heading and pace,
-// a shifting current pushes them about, sudden startles scatter part of a bank,
+// Several loose, slow-drifting schools: each fish wanders gently on its own heading
+// and pace, a slow current moves them about, rare startles loosen part of a bank,
 // ripples cross the banks, and the pointer pushes fish aside and drags them along.
 
 const TAU = Math.PI * 2;
@@ -82,7 +82,7 @@ export class School {
       this.g[i] = g;
       this.x[i] = this.side < 0 ? -30 * s - Math.random() * 160 * s : this.w + 30 * s + Math.random() * 160 * s;
       this.y[i] = this.h * (zone.y0 + (zone.y1 - zone.y0) * ((g + 0.2 + Math.random() * 0.6) / this.groups));
-      this.vx[i] = -this.side * (1.5 + Math.random()) * s * z;
+      this.vx[i] = -this.side * (0.8 + Math.random() * 0.5) * s * z;
       this.vy[i] = (Math.random() - 0.5) * s;
       this.z[i] = z;
       this.ph[i] = Math.random() * TAU;
@@ -133,10 +133,10 @@ export class School {
       wave.x = wave.dir > 0 ? 0 : w;
     }
     if (wave.x > -1e3) {
-      wave.x += wave.dir * 9 * s * f;
+      wave.x += wave.dir * 5 * s * f;
       if (wave.x < -50 * s || wave.x > w + 50 * s) {
         wave.x = -1e4;
-        wave.at = this.t + 4 + Math.random() * 4;
+        wave.at = this.t + 6 + Math.random() * 4;
       }
     }
 
@@ -146,11 +146,11 @@ export class School {
       st.x = w * (zn.x0 + Math.random() * (zn.x1 - zn.x0));
       st.y = h * (zn.y0 + Math.random() * (zn.y1 - zn.y0));
       st.t = this.t;
-      st.at = this.t + 2 + Math.random() * 3;
+      st.at = this.t + 6 + Math.random() * 5;
     }
     const stAge = this.t - st.t;
-    const stR = (90 + stAge * 260) * s;
-    const stOn = stAge < 0.5;
+    const stR = (80 + stAge * 150) * s;
+    const stOn = stAge < 0.8;
 
     const pred = this.pred;
     pred.vx *= Math.pow(0.86, f);
@@ -162,8 +162,8 @@ export class School {
     const viewR2 = viewR * viewR;
     const pushR = 170 * s;
     const margin = Math.min(w, h) * 0.08;
-    const maxV = 2.6 * s;
-    const minV = 1.0 * s;
+    const maxV = 1.5 * s;
+    const minV = 0.6 * s;
 
     for (let i = 0; i < this.max; i++) {
       if (!alive[i]) continue;
@@ -201,37 +201,37 @@ export class School {
         }
       }
 
-      let ax = sx * 0.85 * s;
-      let ay = sy * 0.85 * s;
+      let ax = sx * 0.55 * s;
+      let ay = sy * 0.55 * s;
       if (n) {
-        ax += (avx / n - vx[i]) * 0.025 + (cx / n - xi) * 0.0003;
-        ay += (avy / n - vy[i]) * 0.025 + (cy / n - yi) * 0.0003;
+        ax += (avx / n - vx[i]) * 0.03 + (cx / n - xi) * 0.0003;
+        ay += (avy / n - vy[i]) * 0.03 + (cy / n - yi) * 0.0003;
       }
 
       // Each fish's own restless wander, plus a slowly shifting current.
-      this.wa[i] += (Math.random() - 0.5) * 0.7 * f;
-      ax += Math.cos(this.wa[i]) * 0.11 * s;
-      ay += Math.sin(this.wa[i]) * 0.11 * s;
-      ax += Math.sin(yi / (90 * s) + this.t * 0.7) * 0.05 * s;
-      ay += Math.cos(xi / (110 * s) - this.t * 0.6) * 0.05 * s;
+      this.wa[i] += (Math.random() - 0.5) * 0.3 * f;
+      ax += Math.cos(this.wa[i]) * 0.045 * s;
+      ay += Math.sin(this.wa[i]) * 0.045 * s;
+      ax += Math.sin(yi / (90 * s) + this.t * 0.3) * 0.025 * s;
+      ay += Math.cos(xi / (110 * s) - this.t * 0.25) * 0.025 * s;
 
       if (this.present) {
         const b = this.bank[gi];
         ax += (b.ax - xi) * this.pull;
         ay += (b.ay - yi) * this.pull;
-        if (yi > (zn.y1 + 0.06) * h) ay -= 0.12 * s;
-        if (yi < (zn.y0 - 0.04) * h) ay += 0.12 * s;
+        if (yi > (zn.y1 + 0.06) * h) ay -= 0.06 * s;
+        if (yi < (zn.y0 - 0.04) * h) ay += 0.06 * s;
         // Stay out from under the text panels.
-        if (av && xi > av[0] * w && xi < av[1] * w) ax += Math.sign(zoneMid - xi) * 0.16 * s;
-        const turn = 0.12 * s;
+        if (av && xi > av[0] * w && xi < av[1] * w) ax += Math.sign(zoneMid - xi) * 0.08 * s;
+        const turn = 0.06 * s;
         if (xi < margin) ax += turn * (1 - xi / margin);
         if (xi > w - margin) ax -= turn * (1 - (w - xi) / margin);
         if (yi < margin) ay += turn * (1 - yi / margin);
         if (yi > h - margin) ay -= turn * (1 - (h - yi) / margin);
       } else {
-        ax += this.exitDir * 0.09 * s;
-        if (yi < margin) ay += 0.08 * s;
-        if (yi > h - margin) ay -= 0.08 * s;
+        ax += this.exitDir * 0.05 * s;
+        if (yi < margin) ay += 0.05 * s;
+        if (yi > h - margin) ay -= 0.05 * s;
       }
 
       let boost = 1;
@@ -242,10 +242,10 @@ export class School {
         if (d < pushR && d > 0.001) {
           // The pointer pushes fish away and drags them along its path.
           const k = (1 - d / pushR) * (1 - d / pushR);
-          ax += (dx / d) * k * 1.5 * s + pred.vx * k * 0.14;
-          ay += (dy / d) * k * 1.5 * s + pred.vy * k * 0.14;
-          boost = 1 + k * 1.2;
-          this.fl[i] = Math.min(1, this.fl[i] + k * 0.35);
+          ax += (dx / d) * k * 0.8 * s + pred.vx * k * 0.08;
+          ay += (dy / d) * k * 0.8 * s + pred.vy * k * 0.08;
+          boost = 1 + k * 0.6;
+          this.fl[i] = Math.min(1, this.fl[i] + k * 0.2);
         }
       }
 
@@ -255,16 +255,16 @@ export class School {
         const d = Math.hypot(dx, dy);
         if (d < stR && d > 0.001) {
           const k = 1 - d / stR;
-          ax += (dx / d) * k * 1.8 * s;
-          ay += (dy / d) * k * 1.8 * s;
-          boost = Math.max(boost, 1 + k * 1.4);
-          this.fl[i] = Math.min(1, this.fl[i] + k * 0.4);
+          ax += (dx / d) * k * 0.7 * s;
+          ay += (dy / d) * k * 0.7 * s;
+          boost = Math.max(boost, 1 + k * 0.6);
+          this.fl[i] = Math.min(1, this.fl[i] + k * 0.2);
         }
       }
 
       if (wave.x > -1e3 && Math.abs(xi - wave.x) < 26 * s) {
-        boost = Math.max(boost, 1.5);
-        this.fl[i] = Math.min(1, this.fl[i] + 0.3);
+        boost = Math.max(boost, 1.2);
+        this.fl[i] = Math.min(1, this.fl[i] + 0.15);
       }
 
 
@@ -285,7 +285,7 @@ export class School {
       if (da > Math.PI) da -= TAU;
       if (da < -Math.PI) da += TAU;
       this.ang[i] = a;
-      this.fl[i] = Math.min(1, this.fl[i] * Math.pow(0.9, f) + Math.abs(da) * 2.4);
+      this.fl[i] = Math.min(1, this.fl[i] * Math.pow(0.93, f) + Math.abs(da) * 1.4);
       this.ph[i] += (0.2 + (sp * 0.09) / s) * f;
 
       if (!this.present && (x[i] < -90 * s || x[i] > w + 90 * s || y[i] < -90 * s || y[i] > h + 90 * s)) {

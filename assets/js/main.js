@@ -243,7 +243,8 @@ const tape = document.querySelector('[data-tape]');
 const tapeScreenEl = tape.querySelector('[data-screen]');
 const tapeScreen = screens.get(tapeScreenEl);
 const tapeImg = tapeScreenEl.querySelector('.screen__media');
-const steps = [...tape.querySelectorAll('[data-steps] li')];
+const stepsEl = tape.querySelector('[data-steps]');
+const steps = [...stepsEl.querySelectorAll('li')];
 const frameNum = tape.querySelector('[data-frame]');
 const tapeTc = tape.querySelector('[data-tape-tc]');
 const FRAMES = Number(tapeScreenEl.dataset.frames);
@@ -277,6 +278,7 @@ function updateTape(t) {
   const idx = Math.round(p * (FRAMES - 1));
   const on = Math.min(steps.length - 1, Math.floor(p * steps.length * 0.9999));
   steps.forEach((li, i) => li.classList.toggle('is-on', reduced || i === on));
+  stepsEl.style.setProperty('--step', on);
   if (idx !== lastIdx) {
     lastIdx = idx;
     frameNum.textContent = pad(idx + 1);
@@ -320,7 +322,7 @@ const sonarScreen = screens.get(sonarEl);
 const targetsEl = document.querySelector('[data-targets]');
 const fishCanvas = document.createElement('canvas');
 const small = window.innerWidth < 720 || (navigator.hardwareConcurrency || 8) <= 4;
-const school = new School(fishCanvas, { max: small ? 180 : 480, groups: small ? 3 : 5, reduced });
+const school = new School(fishCanvas, { max: small ? 150 : 400, groups: small ? 3 : 5, reduced });
 
 // The fish get their own full-resolution canvas over the sonar, untouched by the tube.
 fishCanvas.className = 'screen__fish';
@@ -343,14 +345,14 @@ function sizeSchool() {
     const left = a0 - 0.04;
     const right = 0.96 - (a1 + 0.04);
     school.avoid = [a0 - 0.03, a1 + 0.03];
-    school.pull = 0.0006;
+    school.pull = 0.0004;
     school.zone = left >= right
       ? { x0: 0.03, x1: Math.max(0.1, a0 - 0.02), y0: 0.12, y1: 0.9 }
       : { x0: Math.min(0.9, a1 + 0.02), x1: 0.97, y0: 0.12, y1: 0.9 };
   } else {
     // Phones and tablets: the band of open water above the cards.
     school.avoid = null;
-    school.pull = 0.0012;
+    school.pull = 0.0008;
     school.zone = { x0: 0.08, x1: 0.92, y0: 0.1, y1: 0.4 };
   }
   if (reduced) {
