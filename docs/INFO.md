@@ -6,3 +6,4 @@ ground_control_station: Jules trying out a ground control station seat at the Oc
 headshot-circle: Circular crop of Jules's headshot. Dec 2024.
 headshot-square: Square crop of Jules's headshot. Dec 2024.
 operating_x301: Over-the-shoulder shot of Jules remotely controlling the Graaltech X300 AUV (renamed X301) while preparing it for a three-day mission at sea. Jan 2026.
+subsea: Photo from a camera mounted on the belly of an AUV, looking down at the seabed: dense, colorful coral and small fish in deep blue water. The AUV hull is visible along the top; the seabed fills about two-thirds of the frame. Intended as the page's opening image.
