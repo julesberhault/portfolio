@@ -385,7 +385,7 @@ export class CRT {
     });
     host.addEventListener('click', (e) => {
       if (this.reduced) return;
-      if (e.target.closest('a, button, .timeline, .tape__steps')) return;
+      if (e.target.closest('a, button, .timeline, .tape__card')) return;
       s.dist = 1;
     });
   }

@@ -15,6 +15,15 @@
   <link rel="preload" href="assets/fonts/saira-expanded-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/jost-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="assets/img/hero/subsea-1600.webp" imagesrcset="assets/img/hero/subsea-960.webp 960w, assets/img/hero/subsea-1600.webp 1600w, assets/img/hero/subsea-2560.webp 2560w, assets/img/hero/subsea-4096.webp 4096w" imagesizes="100vw" fetchpriority="high">
+  <script>
+    // Freeze the viewport heights before first paint; main.js keeps them current.
+    (function (r, h) {
+      var touch = matchMedia('(pointer: coarse)').matches;
+      r.style.setProperty('--vh', h + 'px');
+      r.style.setProperty('--vh-full', (touch ? Math.max(h, screen.height) : h) + 'px');
+      r.classList.toggle('vh-short', h < 640);
+    })(document.documentElement, window.innerHeight);
+  </script>
   <link rel="stylesheet" href="assets/css/site.css">
   <script type="module" src="assets/js/main.js"></script>
 </head>

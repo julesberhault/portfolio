@@ -9,6 +9,32 @@ const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = matchMedia('(pointer: coarse)').matches;
 if (coarse) root.classList.add('is-touch');
 
+const debounce = (fn, ms) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), ms);
+  };
+};
+
+/* ---------- Stable viewport height ---------- */
+// Mobile browsers resize the window as their toolbars slide (Brave on iOS resizes the
+// window itself). Layout is sized from heights frozen at load and anchored to the top,
+// so scrolling never changes the page length: a shorter window just hides the bottom.
+//   --vh       the window height, for the page layout
+//   --vh-full  the tallest the window can get, for full-height backdrops (fish sonar)
+// Touch devices refresh them only when the width changes (rotation); with a mouse,
+// any window resize does.
+let vhWidth = window.innerWidth;
+function setStableVh() {
+  if (coarse && window.innerWidth === vhWidth) return;
+  vhWidth = window.innerWidth;
+  root.style.setProperty('--vh', `${window.innerHeight}px`);
+  root.style.setProperty('--vh-full', `${coarse ? Math.max(window.innerHeight, screen.height) : window.innerHeight}px`);
+  root.classList.toggle('vh-short', window.innerHeight < 640);
+}
+window.addEventListener('resize', debounce(setStableVh, 150));
+
 const pad = (n, l = 2) => String(Math.floor(n)).padStart(l, '0');
 
 /* ---------- Ground-control monitor wall: a playlist of channels ---------- */
@@ -120,48 +146,23 @@ function updateChrome() {
   });
 }
 
-/* ---------- Reveals and counters ---------- */
+/* ---------- Reveals ---------- */
 
 const revealIO = new IntersectionObserver((entries) => {
   for (const e of entries) {
     if (!e.isIntersecting) continue;
     e.target.classList.add('is-in');
     revealIO.unobserve(e.target);
-    e.target.querySelectorAll('[data-count]').forEach(countUp);
   }
 }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
 
-const revealed = [...document.querySelectorAll('[data-reveal]')];
 const seen = new Map();
-revealed.forEach((el) => {
-  const parent = el.parentElement;
-  const i = seen.get(parent) || 0;
-  seen.set(parent, i + 1);
+document.querySelectorAll('[data-reveal]').forEach((el) => {
+  const i = seen.get(el.parentElement) || 0;
+  seen.set(el.parentElement, i + 1);
   el.style.setProperty('--delay', `${Math.min(i, 4) * 0.08}s`);
   revealIO.observe(el);
 });
-
-function countUp(el) {
-  if (reduced || el.dataset.done) return;
-  el.dataset.done = '1';
-  const end = Number(el.dataset.count);
-  const plain = 'plain' in el.dataset;
-  const start = plain ? end - 27 : 0;
-  const fmt = (n) => (plain ? String(n) : n.toLocaleString('en-US'));
-  // Reserve the final width so rolling digits never reflow the line (no scroll jumps).
-  el.style.display = 'inline-block';
-  el.style.minWidth = `${el.getBoundingClientRect().width}px`;
-  const t0 = performance.now();
-  const dur = 1300;
-  const tick = (now) => {
-    const p = clamp((now - t0) / dur, 0, 1);
-    const e = 1 - Math.pow(1 - p, 4);
-    el.textContent = fmt(Math.round(start + (end - start) * e));
-    if (p < 1) requestAnimationFrame(tick);
-  };
-  el.textContent = fmt(start);
-  requestAnimationFrame(tick);
-}
 
 /* ---------- CRT screens ---------- */
 
@@ -271,11 +272,7 @@ function drawHeroName() {
 
 if (heroScreen) {
   document.fonts.load('700 64px Silkscreen').then(drawHeroName, drawHeroName);
-  let nameTimer;
-  new ResizeObserver(() => {
-    clearTimeout(nameTimer);
-    nameTimer = setTimeout(drawHeroName, 200);
-  }).observe(hero);
+  new ResizeObserver(debounce(drawHeroName, 200)).observe(hero);
 }
 
 /* ---------- Detector tape ---------- */
@@ -409,11 +406,7 @@ function sizeSchool() {
   }
 }
 sizeSchool();
-let schoolTimer;
-new ResizeObserver(() => {
-  clearTimeout(schoolTimer);
-  schoolTimer = setTimeout(sizeSchool, 200);
-}).observe(sonarEl);
+new ResizeObserver(debounce(sizeSchool, 200)).observe(sonarEl);
 
 if (!reduced) {
   new IntersectionObserver((entries) => {
