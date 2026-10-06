@@ -299,9 +299,15 @@ Chunky hardware keys, confident and plain.
   - On phones: the center monitor full width, then a 2×2 grid, with no angle.
 - **Skill keys:** keycap tags carry a 1.05em mark in ink-2 before the label. Languages and tools use brand logos from Simple Icons (CC0), filled. Expertise, methods, domains and lifecycle use Lucide line icons (ISC) at a 1.8 stroke. Gazebo and Onshape have no brand mark, so they use the Lucide box and shapes icons. All marks are inlined in the page's SVG sprite, with no external requests. The project lifecycle is one row of keys joined by chevrons at full width; on phones it stacks vertically with down chevrons.
 - **Paired screens:** two different aspect ratios share one height: a 4fr 4:3 tube beside a 3fr square tube. They stack at 4:3 on phones.
+- **Ranging illustration (Exail project):** a live CRT screen (5:4) fed by a canvas (`assets/js/mdt.js`). It shows a synthetic white-hot infrared view in which a 14 m vessel approaches from 320 m to 55 m, with the camera rolling and heaving.
+  - An amber overlay draws the segmented horizon, a TRK box, the gap bracket, a bearing scale and BRG / GAP / RNG readouts.
+  - Range is computed with the report's geometry and camera parameters (h = 2 m, 50° × 40° field of view, 640 × 512, Earth-curvature dip).
+  - The screen is captioned "Illustration · synthetic IR view". Below it, a side-view SVG diagram in lamp lines explains d = h / tan(dip + γ).
 - **Fish sonar is plain:** this one screen skips the tube (`data-plain`): the water field and crisp fish, with no curvature, scanlines or split.
 - **Flags:** language names in About and Skills carry 1.5×1em inline SVG flags (France, United Kingdom, Spain) with 2px corners and a hairline edge.
-- **Fish banks:** several loose banks (5 on desktop, 3 on mobile; about 480 and 180 fish) drawn as amber phosphor vector strokes (a tapering body and a bright eye, no tail fin) dragging long afterglow trails (14% fade per frame) over the water field. Each bank flocks only with its own kind, with wide spacing and light cohesion. The pointer pushes fish away and drags them along its path.
+- **Fish banks:** several loose banks (5 on desktop, 3 on mobile; about 480 and 180 fish).
+  - **Drawing:** slim, tapered amber bodies, filled, with no fins, eye or trail. They're drawn on their own canvas over the plain water field, at device-pixel resolution (capped near 4 MP), so they stay crisp.
+  - **Motion:** restless by design. Each fish has its own wander heading and pace, a slowly shifting current pushes the banks, and an unseen startle scatters part of a bank every 2 to 5 s. Banks flock loosely within their own kind, and the pointer pushes fish away and drags them along its path.
 
 ### Navigation
 - **Style:** fixed 60px bar, transparent over the hero, then charcoal at 94% with an engraved bottom rule. Saira Expanded wordmark left; Jost 500 links at 0.95rem in lamp-2, lamp on hover; the current section gets lamp text with a 2px orange underline at 0.45em offset.

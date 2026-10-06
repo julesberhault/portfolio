@@ -57,6 +57,12 @@ Jules builds real vessels, not just software or simulations. He has taken a 9 m 
 - **Videos** (`assets/vid/`, 8 clips in `.mp4` and `.webm`): **stock footage, for ambience only.** They must never be presented or captioned as Jules's own work or as any specific project.
 - **Awards:** CoHoMa 2022, Human-Machine Interface award and Combative Spirit award.
 - **Publication:** M.S. thesis, "Development and Optimization of a Target Detection and Tracking System at Sea" (2021).
+- **Platforms (confirmed by Jules, 2026-10-06):**
+  - USVs: 9 m outboard, taken from remote operation to autonomy; 17 m dual waterjet, taken from remote operation to autonomy, plus obstacle avoidance; 17 m catamaran, from concept to integration with a French naval architect and a shipbuilder in China, fully autonomous, COLREGs-compliant and long-range offshore.
+  - AUV: 4 m, teleoperated offshore for data acquisition.
+  - UGV platforms at ENSTA Paris.
+  - DriX H-8 at Exail's robotics division (single-camera detection and tracking).
+- **M.S. report (2021, in French):** https://webperso.ensta.fr/jaulin/rapport_pfe_jules_berhault.pdf. It covers horizon-referenced IR ranging for the MDT system, the error study, heave compensation, the coastline-as-horizon correction, coast-distance ray tracing sped up from 70 ms to 0.012 ms, and a MAVROS/ArduPilot interface.
 - **Not available, so never invent:** testimonials, endorsements, client logos, metrics beyond those in the README, or extra publications.
 
 ## Product Principles

@@ -1,7 +1,7 @@
-// Fish banks drawn as amber vector strokes with long afterglow on a sonar screen.
-// Several loose schools, each flocking only with its own kind: wide spacing,
-// light cohesion, flashes on turns, ripples crossing the banks, and a pointer
-// that pushes them aside and drags them along its path.
+// Fish banks drawn as crisp amber strokes over the sonar's water field.
+// Several loose, restless schools: each fish wanders on its own heading and pace,
+// a shifting current pushes them about, sudden startles scatter part of a bank,
+// ripples cross the banks, and the pointer pushes fish aside and drags them along.
 
 const TAU = Math.PI * 2;
 
@@ -20,6 +20,8 @@ export class School {
     this.ph = new Float32Array(max);
     this.fl = new Float32Array(max);
     this.ang = new Float32Array(max);
+    this.wa = new Float32Array(max);
+    this.sf = new Float32Array(max);
     this.g = new Uint8Array(max);
     this.alive = new Uint8Array(max);
     this.next = new Int32Array(max);
@@ -38,6 +40,7 @@ export class School {
     this.exitDir = 1;
     this.pred = { x: 0, y: 0, vx: 0, vy: 0, on: false };
     this.wave = { x: -1e4, dir: 1, at: 3 };
+    this.startle = { x: 0, y: 0, t: -1e4, at: 2 };
     this.t = 0;
     this.zone = { x0: 0.08, x1: 0.92, y0: 0.18, y1: 0.82 };
     this.avoid = null;
@@ -84,6 +87,8 @@ export class School {
       this.ph[i] = Math.random() * TAU;
       this.fl[i] = 0;
       this.ang[i] = Math.atan2(this.vy[i], this.vx[i]);
+      this.wa[i] = Math.random() * TAU;
+      this.sf[i] = 0.8 + Math.random() * 0.45;
       this.count++;
       k--;
     }
@@ -133,6 +138,18 @@ export class School {
         wave.at = this.t + 4 + Math.random() * 4;
       }
     }
+
+    // Startle: every few seconds an unseen threat scatters part of a bank.
+    const st = this.startle;
+    if (this.present && this.t > st.at) {
+      st.x = w * (zn.x0 + Math.random() * (zn.x1 - zn.x0));
+      st.y = h * (zn.y0 + Math.random() * (zn.y1 - zn.y0));
+      st.t = this.t;
+      st.at = this.t + 2 + Math.random() * 3;
+    }
+    const stAge = this.t - st.t;
+    const stR = (90 + stAge * 260) * s;
+    const stOn = stAge < 0.5;
 
     const pred = this.pred;
     pred.vx *= Math.pow(0.86, f);
@@ -186,9 +203,16 @@ export class School {
       let ax = sx * 0.85 * s;
       let ay = sy * 0.85 * s;
       if (n) {
-        ax += (avx / n - vx[i]) * 0.04 + (cx / n - xi) * 0.0004;
-        ay += (avy / n - vy[i]) * 0.04 + (cy / n - yi) * 0.0004;
+        ax += (avx / n - vx[i]) * 0.025 + (cx / n - xi) * 0.0003;
+        ay += (avy / n - vy[i]) * 0.025 + (cy / n - yi) * 0.0003;
       }
+
+      // Each fish's own restless wander, plus a slowly shifting current.
+      this.wa[i] += (Math.random() - 0.5) * 0.7 * f;
+      ax += Math.cos(this.wa[i]) * 0.11 * s;
+      ay += Math.sin(this.wa[i]) * 0.11 * s;
+      ax += Math.sin(yi / (90 * s) + this.t * 0.7) * 0.05 * s;
+      ay += Math.cos(xi / (110 * s) - this.t * 0.6) * 0.05 * s;
 
       if (this.present) {
         const b = this.bank[gi];
@@ -224,18 +248,29 @@ export class School {
         }
       }
 
+      if (stOn) {
+        const dx = xi - st.x;
+        const dy = yi - st.y;
+        const d = Math.hypot(dx, dy);
+        if (d < stR && d > 0.001) {
+          const k = 1 - d / stR;
+          ax += (dx / d) * k * 1.8 * s;
+          ay += (dy / d) * k * 1.8 * s;
+          boost = Math.max(boost, 1 + k * 1.4);
+          this.fl[i] = Math.min(1, this.fl[i] + k * 0.4);
+        }
+      }
+
       if (wave.x > -1e3 && Math.abs(xi - wave.x) < 26 * s) {
         boost = Math.max(boost, 1.5);
         this.fl[i] = Math.min(1, this.fl[i] + 0.3);
       }
 
-      ax += (Math.random() - 0.5) * 0.06 * s;
-      ay += (Math.random() - 0.5) * 0.06 * s;
 
       vx[i] += ax * f;
       vy[i] += ay * f;
       const sp = Math.hypot(vx[i], vy[i]) || 1;
-      const pace = this.bank[gi].pace;
+      const pace = this.bank[gi].pace * this.sf[i];
       const lim = maxV * pace * (0.7 + 0.3 * z[i]) * boost;
       const low = minV * pace * (0.7 + 0.3 * z[i]);
       const k = sp > lim ? lim / sp : sp < low ? low / sp : 1;
@@ -262,18 +297,8 @@ export class School {
   draw() {
     const { ctx, w, h, s } = this;
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    if (this.reduced) {
-      ctx.clearRect(0, 0, w, h);
-    } else {
-      // Long phosphor afterglow: every fish drags a fading trace behind it.
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.14)';
-      ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = 'source-over';
-    }
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    for (let i = 0; i < this.max; i++) {
+    ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < this.max; i++) {
       if (!this.alive[i]) continue;
       const zi = this.z[i];
       const fl = this.fl[i];
@@ -290,17 +315,13 @@ export class School {
       const alpha = 0.38 + 0.55 * zi;
       ctx.setTransform(c, sn, -sn, c, this.x[i], this.y[i]);
 
-      // Vector glyph: one tapering body stroke and a bright eye.
-      ctx.lineWidth = (0.9 + 0.9 * zi) * s;
-      ctx.strokeStyle = `rgba(255, ${gr}, ${bl}, ${alpha})`;
+      // A slim, tapered body that bends as the fish swims: no fins, no eye.
+      const half = W * 0.55;
+      ctx.fillStyle = `rgba(255, ${gr}, ${bl}, ${alpha})`;
       ctx.beginPath();
       ctx.moveTo(L * 0.5, 0);
-      ctx.quadraticCurveTo(0, -bend, -L * 0.5, tb);
-      ctx.stroke();
-
-      ctx.fillStyle = `rgba(255, ${Math.min(255, gr + 30)}, ${Math.min(255, bl + 60)}, ${Math.min(1, alpha + 0.2)})`;
-      ctx.beginPath();
-      ctx.arc(L * 0.42, 0, (0.9 + 0.8 * zi) * s, 0, TAU);
+      ctx.quadraticCurveTo(L * 0.05, -half - bend * 0.6, -L * 0.5, tb);
+      ctx.quadraticCurveTo(L * 0.05, half - bend * 0.6, L * 0.5, 0);
       ctx.fill();
     }
     ctx.setTransform(1, 0, 0, 1, 0, 0);

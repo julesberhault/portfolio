@@ -412,6 +412,12 @@ export class CRT {
     }
   }
 
+  // A canvas drawn elsewhere (the ranging illustration) becomes this screen's picture.
+  setCanvasSource(s, canvas) {
+    s.src = canvas;
+    s.tex = s.tex || this.texture();
+  }
+
   resumeVideos() {
     for (const s of this.screens) if (s.video && s.visible && s.video.paused) s.video.play().catch(() => {});
   }
@@ -468,6 +474,12 @@ export class CRT {
       this.renderField(s, s.type === 'water' ? 1 : 2, s.field, t);
       tex = s.field.tex;
     } else {
+      if (s.src && s.visible) {
+        this.upload(s.tex, s.src);
+        s.iw = s.src.width;
+        s.ih = s.src.height;
+        s.ready = true;
+      }
       // Upload a video frame only when playback has moved on.
       if (s.video && s.visible && s.video.readyState >= 2 && s.video.currentTime !== s.lastTime) {
         this.upload(s.tex, s.video);

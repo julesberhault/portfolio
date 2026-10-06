@@ -1,5 +1,6 @@
 import { CRT } from './crt.js';
 import { School } from './boids.js';
+import { MdtSim } from './mdt.js';
 
 const root = document.documentElement;
 root.classList.add('js');
@@ -261,6 +262,28 @@ function updateTape(t) {
   }
 }
 
+/* ---------- Ranging illustration (Exail, 2021) ---------- */
+
+const mdtEl = document.querySelector('[data-mdt]');
+const mdtCanvas = document.createElement('canvas');
+const mdt = new MdtSim(mdtCanvas);
+const mdtScreen = screens.get(mdtEl);
+let mdtVisible = false;
+if (mdtScreen) {
+  crt.setCanvasSource(mdtScreen, mdtCanvas);
+} else {
+  mdtCanvas.className = 'screen__gl';
+  mdtCanvas.setAttribute('aria-hidden', 'true');
+  mdtEl.append(mdtCanvas);
+}
+new IntersectionObserver((entries) => {
+  mdtVisible = entries[0].isIntersecting;
+}).observe(mdtEl);
+document.fonts.load('17px VT323').then(() => {
+  mdt.draw(7);
+  if (mdtScreen) mdtScreen.dirty = true;
+});
+
 /* ---------- Fish school on the sonar ---------- */
 
 const sonarEl = document.querySelector('[data-boids]');
@@ -270,19 +293,17 @@ const fishCanvas = document.createElement('canvas');
 const small = window.innerWidth < 720 || (navigator.hardwareConcurrency || 8) <= 4;
 const school = new School(fishCanvas, { max: small ? 180 : 480, groups: small ? 3 : 5, reduced });
 
-if (sonarScreen) {
-  crt.setOverlay(sonarScreen, fishCanvas);
-} else {
-  fishCanvas.className = 'screen__gl';
-  fishCanvas.setAttribute('aria-hidden', 'true');
-  sonarEl.append(fishCanvas);
-}
+// The fish get their own full-resolution canvas over the sonar, untouched by the tube.
+fishCanvas.className = 'screen__fish';
+fishCanvas.setAttribute('aria-hidden', 'true');
+sonarEl.append(fishCanvas);
 
 let settled = false;
 function sizeSchool() {
   const r = sonarEl.getBoundingClientRect();
   if (r.width < 2 || r.height < 2) return;
-  const s = Math.min(1, 1280 / r.width);
+  // Device-pixel resolution keeps the strokes crisp, capped at about 4 MP.
+  const s = Math.min(window.devicePixelRatio || 1, 2, Math.sqrt(4e6 / (r.width * r.height)));
   school.resize(r.width * s, r.height * s, s);
   // Keep the school in the open water beside the timeline, never under it.
   const tl = document.querySelector('.experience .timeline');
@@ -310,7 +331,6 @@ function sizeSchool() {
       settled = true;
     }
     school.draw();
-    if (sonarScreen && sonarScreen.overlay) sonarScreen.overlay.dirty = true;
     if (targetsEl) targetsEl.textContent = pad(school.count, 3);
   }
 }
@@ -370,9 +390,10 @@ function frame(now) {
   if (!reduced && (fishVisible || school.count > 0)) {
     school.step(dt);
     school.draw();
-    if (sonarScreen && sonarScreen.overlay) sonarScreen.overlay.dirty = true;
     if (++countTick % 8 === 0) targetsEl.textContent = pad(school.count, 3);
   }
+
+  if (mdtVisible && !reduced) mdt.draw(t);
 
   if (crt) crt.frame(t, dt);
   requestAnimationFrame(frame);
