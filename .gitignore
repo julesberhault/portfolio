@@ -1,12 +1,7 @@
 .DS_Store
 
-# Local design-review tooling and captures (not part of the site)
-.impeccable/review/
-.impeccable/ref/
-.impeccable/questions/
-.impeccable/config.local.json
-.impeccable/hook.cache.json
+# Local design tooling and captures (not part of the site)
+.impeccable/
 
-# Personal Claude Code settings and design-review scratch
+# Personal Claude Code settings
 .claude/settings.local.json
-.impeccable/mocks/
