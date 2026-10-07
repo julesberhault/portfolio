@@ -3,14 +3,35 @@ name: Deploy to Cloudflare
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
+# One run per ref, so a PR check never cancels a production deploy.
 concurrency:
-  group: cloudflare-deploy
+  group: cloudflare-deploy-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  # Validates wrangler.jsonc and builds the asset manifest (catching files over
+  # the 25 MiB limit) without uploading anything or needing a token.
+  check:
+    name: Dry-run deploy
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - run: npx --yes wrangler@4.148.0 deploy --dry-run
+
   deploy:
+    name: Deploy
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
