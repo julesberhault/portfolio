@@ -11,6 +11,7 @@ node_modules
 .nojekyll
 _config.yml
 wrangler.jsonc
+worker.js
 *.md
 
 # Raw 1080p video masters: the page only loads the encodes in assets/vid/web/,

@@ -3,10 +3,14 @@
   "name": "portfolio",
   "account_id": "a7e1291b8c8a74cd9ccd02b34a6c49bb",
   "compatibility_date": "2026-10-07",
-  // Static site only: no Worker script, every request is served from assets.
+  // Static site: every request is served from assets, except videos, which go through
+  // worker.js first so range requests get 206 partial responses (seeking, iOS playback).
   // Files excluded from the upload are listed in .assetsignore.
+  "main": "worker.js",
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/assets/vid/*"]
   },
   "routes": [
     { "pattern": "julesberhault.com", "custom_domain": true },

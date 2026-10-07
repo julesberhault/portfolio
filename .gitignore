@@ -10,3 +10,6 @@
 # Personal Claude Code settings and design-review scratch
 .claude/settings.local.json
 .impeccable/mocks/
+
+# Wrangler local dev state
+.wrangler/

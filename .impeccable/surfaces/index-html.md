@@ -29,17 +29,17 @@ related_targets: []
    - **Container-transport USV:** the Stavanger ground-station photo is a placeholder the user chose to keep. Its alt text must describe what the photo really shows.
    - **X301 AUV:** `deploying_x301` (4:3) and `operating_x301` (square) side by side at one shared height (4fr / 3fr columns). Stacked at 4:3 on phones.
    - **CoHoMa 2022:** `cohoma_challenge` plus both awards.
-4. **Interlude:** *changed at build (user request)*. It's now a ground control station wall of five CRT monitors, each playing a graded stock clip and labelled only with a channel number (CH 04–08). There's a large center feed, four side monitors angled toward the operator, and an amber status strip ('Ground control · 5 feeds'). It is aria-hidden, the footer credits the clips as ambient stock footage, and the diver clip is never used. On phones: the center monitor first, then a 2×2 grid. The project lifecycle sits in Skills as a row of keys.
+4. **Interlude:** *changed at build (user request)*. It's now a ground control station wall of five CRT monitors, each playing a graded stock clip and labelled only with a channel number (CH 04–09, six 20 s channels rolling across five monitors). There's a large center feed, four side monitors angled toward the operator, and an amber status strip ('Ground control · 5 feeds'). It is aria-hidden, the footer credits the clips as ambient stock footage. On phones: the center monitor first, then a 2×2 grid. The project lifecycle sits in Skills as a row of keys.
 5. **Experience & Education:** the host section for the **fish school**. The school swims in when the section is read and leaves when the visitor moves to another section.
 6. **Skills, Languages, Certifications, Publication**
 7. **Contact:** the thermal (EO/IR) signal field behind it.
 
 ## Assets and constraints
 - **Stock videos** (`assets/vid/`): re-encode them for the web and use them only as ambience.
-  - Don't use the clip with the scuba diver.
+  - The scuba diver may appear in the footage (*changed by user request*).
   - No captions. *Changed at build (user request):* the footer credit line was removed. The wall still labels each feed only by channel number.
 - **Detector frames:** load them only when the section gets close; serve 960 px versions on mobile.
-- **Fish school behavior:** Reynolds rules plus a flash of silver when fish turn, ripple waves through the school, the cursor or a touch acting as a predator so the school splits and re-forms around it (the bait-ball split), and 2–3 depth layers. About 250 fish on desktop and about 90 on mobile. Pause it when it's off-screen or the tab is hidden.
+- **Fish school behavior:** Reynolds rules plus a flash of silver when fish turn, ripple waves through the school, the cursor or a touch acting as a predator so the school splits and re-forms around it (the bait-ball split), and 2–3 depth layers. 240 fish on desktop and 120 on phone-width screens. Pause it when it's off-screen or the tab is hidden.
 - **Reduced motion:** `prefers-reduced-motion` gets a complete still fallback. Text contrast meets WCAG AA everywhere, including over photos.
 
 ## Direction contract

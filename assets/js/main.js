@@ -45,13 +45,37 @@ const PLAYLIST = [
   { name: 'gcs-main', ch: '06' },
   { name: 'gcs-fan-rocks', ch: '07' },
   { name: 'gcs-fish', ch: '08' },
+  { name: 'gcs-amber-kelp', ch: '09' },
 ];
-const clipExt = document.createElement('video').canPlayType('video/mp4') ? 'mp4' : 'webm';
-// Random start: shuffle the playlist and give each monitor a different clip.
-const startOrder = PLAYLIST.map((_, i) => i).sort(() => Math.random() - 0.5);
-const monitors = [...document.querySelectorAll('.gcs__mon .screen')].map((el, k) => {
-  const mon = { el, video: el.querySelector('video'), label: el.querySelector('.hud--ch'), idx: startOrder[k % PLAYLIST.length] };
+// VP9 WebM is much lighter, but Safari and every iOS browser (all WebKit) claim WebM and then
+// stall on these files, so only they get the H.264 MP4.
+const ua = navigator.userAgent;
+const webkitOnly = /iP(hone|ad|od)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)
+  || (/Safari\//.test(ua) && !/Chrome|Chromium|Edg|OPR|Firefox/.test(ua));
+const clipExt = !webkitOnly && document.createElement('video').canPlayType('video/webm; codecs="vp9"') ? 'webm' : 'mp4';
+// All clips run exactly CLIP_SECONDS, and one shared clock schedules the wall. Monitor k (screens
+// shuffled) is CLIP_SECONDS / monitors further through the list than monitor k - 1, starting from a
+// random channel, so one monitor changes channel at a time, each onto the channel that just went free:
+// a steady roll through the list, never a doubled feed. Load delays and off-screen pauses are absorbed
+// by tuning to the schedule rather than chaining each clip off the last.
+const CLIP_SECONDS = 20;
+const wallEpoch = performance.now() / 1000;
+const monScreens = [...document.querySelectorAll('.gcs__mon .screen')].sort(() => Math.random() - 0.5);
+const stagger = CLIP_SECONDS / monScreens.length;
+const firstCh = Math.floor(Math.random() * PLAYLIST.length);
+// The channel monitor k should show now, and how far into the clip.
+function onSchedule(k) {
+  const s = performance.now() / 1000 - wallEpoch + k * stagger;
+  return { idx: (firstCh + k + Math.floor(s / CLIP_SECONDS)) % PLAYLIST.length, pos: s % CLIP_SECONDS };
+}
+const monitors = monScreens.map((el, k) => {
+  const mon = { el, k, video: el.querySelector('video'), label: el.querySelector('.hud--ch'), idx: onSchedule(k).idx };
   tuneMonitor(mon);
+  // Join the clip at its scheduled point once the new source can seek.
+  mon.video.addEventListener('loadedmetadata', () => {
+    const s = onSchedule(mon.k);
+    if (s.idx === mon.idx && s.pos > 0.25) mon.video.currentTime = s.pos;
+  });
   return mon;
 });
 
@@ -186,14 +210,25 @@ if (crt) {
   });
 }
 
-// When a clip ends, the monitor changes channel to the next clip in the playlist.
+function changeChannel(mon, idx) {
+  mon.idx = idx;
+  tuneMonitor(mon);
+  const screen = screens.get(mon.el);
+  if (screen) crt.channelChange(screen);
+  mon.video.play().catch(() => {});
+}
+
+// When a clip ends, the monitor changes channel to the next clip in the playlist, indefinitely.
+// A clip that ends a hair before the schedule flips still moves on to the next channel.
 monitors.forEach((mon) => {
   mon.video.addEventListener('ended', () => {
-    mon.idx = (mon.idx + 1) % PLAYLIST.length;
-    tuneMonitor(mon);
-    const screen = screens.get(mon.el);
-    if (screen) crt.channelChange(screen);
-    mon.video.play().catch(() => {});
+    const { idx } = onSchedule(mon.k);
+    changeChannel(mon, idx === mon.idx ? (idx + 1) % PLAYLIST.length : idx);
+  });
+  // A monitor that was paused off-screen rejoins its scheduled channel when it plays again.
+  mon.video.addEventListener('play', () => {
+    const { idx } = onSchedule(mon.k);
+    if (idx !== mon.idx) changeChannel(mon, idx);
   });
 });
 
@@ -361,8 +396,9 @@ const sonarEl = document.querySelector('[data-boids]');
 const sonarScreen = screens.get(sonarEl);
 const targetsEl = document.querySelector('[data-targets]');
 const fishCanvas = document.createElement('canvas');
-const small = window.innerWidth < 720 || (navigator.hardwareConcurrency || 8) <= 4;
-const school = new School(fishCanvas, { max: small ? 120 : 320, groups: small ? 4 : 6, reduced });
+// Phone-width screens get 120 fish, desktops 240.
+const small = window.innerWidth < 720;
+const school = new School(fishCanvas, { max: small ? 120 : 240, groups: small ? 4 : 6, reduced });
 
 // The fish get their own full-resolution canvas over the sonar, untouched by the tube.
 fishCanvas.className = 'screen__fish';
