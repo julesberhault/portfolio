@@ -362,7 +362,7 @@ const sonarScreen = screens.get(sonarEl);
 const targetsEl = document.querySelector('[data-targets]');
 const fishCanvas = document.createElement('canvas');
 const small = window.innerWidth < 720 || (navigator.hardwareConcurrency || 8) <= 4;
-const school = new School(fishCanvas, { max: small ? 150 : 400, groups: small ? 3 : 5, reduced });
+const school = new School(fishCanvas, { max: small ? 240 : 640, groups: small ? 4 : 6, reduced });
 
 // The fish get their own full-resolution canvas over the sonar, untouched by the tube.
 fishCanvas.className = 'screen__fish';

@@ -300,7 +300,7 @@ Chunky hardware keys, confident and plain.
 - **Video sources:** H.264 MP4 is listed first and VP9 WebM second. Safari/WebKit claims WebM support but stalls on these VP9 files, so MP4 must come first. A real tap or click plays and unlocks every monitor (iOS Low Power Mode). If the WebGL context is lost, `has-crt` is dropped and the plain media show.
 - **Monitor playlist:** the five clips form one playlist of channels (CH 04–08). Each monitor starts on a different random clip and plays it once (no loop). When it ends, the monitor changes channel to the next clip: a 0.45 s burst of analog static in the CRT shader plus a colour glitch, with the CH label updated. There is no static under reduced motion.
 - **Ground control wall (interlude):** five CRT monitors in gunmetal bezels on charcoal: a 2-column-wide center feed plus two monitors on each side, angled 14° toward the viewer with a 1600px perspective.
-  - Each monitor plays a graded 640×480 stock loop (the center one plays a 1280×960 loop over rocks and reef blocks), with an amber 'CH nn' readout and an LED.
+  - Each monitor plays a graded 640×480 stock loop (the centre one a 1280×960 clip over rocks and reef blocks), with an amber 'CH nn' readout and an LED.
   - A tube-black status strip below carries an amber readout.
   - Video textures upload only on new frames (requestVideoFrameCallback).
   - On phones: the center monitor full width, then a 2×2 grid, with no angle.
@@ -314,7 +314,7 @@ Chunky hardware keys, confident and plain.
 - **Fish sonar height:** the sticky sonar is anchored to the top at `--vh-full`, the tallest the window can get (on touch: max(window, screen) height). Toolbars never resize it, and a shorter window just hides its bottom. Its height and negative margin cancel out, so it never changes the page length.
 - **Fish sonar is plain:** this one screen skips the tube (`data-plain`): the water field and crisp fish, with no curvature, scanlines or split.
 - **Flags:** language names in About and Skills carry 1.5×1em inline SVG flags (France, United Kingdom, Spain) with 2px corners and a hairline edge.
-- **Fish banks:** several loose banks (5 on desktop, 3 on mobile; about 400 and 150 fish).
+- **Fish banks:** several loose banks (6 on desktop, 4 on mobile; about 640 and 240 fish).
   - **Drawing:** each fish is an amber water drop: a round head tapering to a point about 5.6 head-radii behind it. A linear gradient fades it from the back of the round head to the tip. Faster fish stretch slightly lengthwise. One shared Path2D and gradient are drawn per fish with a transform, plus a white flash layer on turns and startles. There are no lingering trails (the canvas clears every frame). An amber neon glow comes from a single CSS drop-shadow (one pass, light enough for phones), on their own canvas over the plain water field at up to 1.5× device pixels.
   - **Motion:** slow and mesmerizing by design: about 36–90 px/s (0.6–1.5 px per frame). Each fish has its own gentle wander and pace, a slow current moves the banks, and a mild startle loosens part of a bank every 6 to 11 s. Zone edges are smooth force ramps, never on/off thresholds, and flashes follow a smoothed turn rate, so fish don't flicker along an invisible line.
 
