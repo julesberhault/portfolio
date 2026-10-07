@@ -1,0 +1,19 @@
+# Repo and tooling files that must not be served
+.git
+.github
+.claude
+.impeccable
+.wrangler
+node_modules
+.DS_Store
+.gitignore
+.assetsignore
+.nojekyll
+_config.yml
+wrangler.jsonc
+*.md
+
+# Raw 1080p video masters: the page only loads the encodes in assets/vid/web/,
+# and several masters exceed the 25 MiB per-file asset limit.
+/assets/vid/*.mp4
+/assets/vid/*.webm

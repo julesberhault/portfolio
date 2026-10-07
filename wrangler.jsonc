@@ -1,0 +1,16 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "portfolio",
+  "account_id": "a7e1291b8c8a74cd9ccd02b34a6c49bb",
+  "compatibility_date": "2026-10-07",
+  // Static site only: no Worker script, every request is served from assets.
+  // Files excluded from the upload are listed in .assetsignore.
+  "assets": {
+    "directory": "."
+  },
+  "routes": [
+    { "pattern": "julesberhault.com", "custom_domain": true },
+    { "pattern": "www.julesberhault.com", "custom_domain": true }
+  ],
+  "workers_dev": false
+}
