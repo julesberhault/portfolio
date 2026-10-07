@@ -1,0 +1,36 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "border-accent-on-rounded",
+        "value": "*",
+        "files": [
+          "assets/css/site.css"
+        ],
+        "createdAt": "2026-10-05T21:39:28.316Z",
+        "reason": "builder: 3px bottom bevel on the orange hardware buttons and keycap tags is the cassette-futurism key shape, not a colored card accent"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-05T21:39:28.341Z",
+        "reason": "builder: cramped-padding here comes from full-bleed CRT screens/stripes (flush by design) and short VT323 on-screen readout captions in the user-pinned cassette-futurism CRT idiom"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-05T21:39:28.364Z",
+        "reason": "builder: all-caps-body here comes from full-bleed CRT screens/stripes (flush by design) and short VT323 on-screen readout captions in the user-pinned cassette-futurism CRT idiom"
+      }
+    ]
+  }
+}

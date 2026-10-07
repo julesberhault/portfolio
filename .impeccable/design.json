@@ -1,0 +1,620 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-06T03:42:31+00:00",
+  "title": "Design System: Jules Berhault — Marine Robotics Engineer",
+  "extensions": {
+    "colorMeta": {
+      "charcoal": {
+        "role": "neutral",
+        "displayName": "Smoked Charcoal",
+        "canonical": "#151617",
+        "oklch": "oklch(20.0% 0.003 248.0)",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#242526",
+          "#414243",
+          "#606163",
+          "#818284",
+          "#a4a5a6",
+          "#c8c9cb",
+          "#edeff0"
+        ]
+      },
+      "gunmetal": {
+        "role": "neutral",
+        "displayName": "Gunmetal",
+        "canonical": "#25282b",
+        "oklch": "oklch(27.5% 0.007 248.1)",
+        "tonalRamp": [
+          "#090b0e",
+          "#222528",
+          "#3f4246",
+          "#5e6265",
+          "#7f8386",
+          "#a2a5a9",
+          "#c6cace",
+          "#ebeff3"
+        ]
+      },
+      "tube": {
+        "role": "neutral",
+        "displayName": "Tube Black",
+        "canonical": "#050606",
+        "oklch": "oklch(12.0% 0.003 196.8)",
+        "tonalRamp": [
+          "#0a0b0b",
+          "#242525",
+          "#404242",
+          "#606262",
+          "#818383",
+          "#a3a5a5",
+          "#c7caca",
+          "#edefef"
+        ]
+      },
+      "beige": {
+        "role": "neutral",
+        "displayName": "Computer Beige",
+        "canonical": "#d7d2c5",
+        "oklch": "oklch(86.4% 0.018 89.4)",
+        "tonalRamp": [
+          "#0e0b04",
+          "#29251b",
+          "#464237",
+          "#656156",
+          "#878276",
+          "#aaa598",
+          "#cec9bc",
+          "#f3eee1"
+        ]
+      },
+      "beige-key": {
+        "role": "neutral",
+        "displayName": "Keycap Beige",
+        "canonical": "#e8e4d9",
+        "oklch": "oklch(91.9% 0.015 90.2)",
+        "tonalRamp": [
+          "#0e0b05",
+          "#28251d",
+          "#454239",
+          "#646158",
+          "#868278",
+          "#a9a59a",
+          "#cdc9be",
+          "#f2eee3"
+        ]
+      },
+      "beige-edge": {
+        "role": "neutral",
+        "displayName": "Keycap Edge",
+        "canonical": "#aea898",
+        "oklch": "oklch(73.2% 0.024 89.8)",
+        "tonalRamp": [
+          "#0e0b04",
+          "#29251b",
+          "#464236",
+          "#666153",
+          "#888273",
+          "#aaa596",
+          "#cec9bb",
+          "#f3eee1"
+        ]
+      },
+      "lamp": {
+        "role": "neutral",
+        "displayName": "Lamp White",
+        "canonical": "#eef0ea",
+        "oklch": "oklch(95.2% 0.008 121.6)",
+        "tonalRamp": [
+          "#0b0c08",
+          "#242621",
+          "#41433e",
+          "#60625d",
+          "#81837e",
+          "#a4a6a0",
+          "#c8cac4",
+          "#edefe9"
+        ]
+      },
+      "lamp-2": {
+        "role": "neutral",
+        "displayName": "Lamp Dim",
+        "canonical": "#b2b5ae",
+        "oklch": "oklch(76.9% 0.010 125.7)",
+        "tonalRamp": [
+          "#0a0c07",
+          "#242621",
+          "#41433d",
+          "#60625c",
+          "#81837d",
+          "#a3a69f",
+          "#c7cac3",
+          "#edf0e8"
+        ]
+      },
+      "lamp-3": {
+        "role": "neutral",
+        "displayName": "Lamp Low",
+        "canonical": "#7d817b",
+        "oklch": "oklch(59.8% 0.010 134.9)",
+        "tonalRamp": [
+          "#090c08",
+          "#232621",
+          "#40433e",
+          "#5f635d",
+          "#80847e",
+          "#a2a6a0",
+          "#c6cbc4",
+          "#ecf0e9"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#17181a",
+        "oklch": "oklch(20.9% 0.004 264.5)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#414244",
+          "#606164",
+          "#818285",
+          "#a4a5a8",
+          "#c8c9cc",
+          "#edeef1"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Dim",
+        "canonical": "#4a4a45",
+        "oklch": "oklch(40.7% 0.008 106.8)",
+        "tonalRamp": [
+          "#0b0b08",
+          "#252521",
+          "#42423d",
+          "#62625c",
+          "#83837d",
+          "#a5a5a0",
+          "#c9c9c4",
+          "#efefe9"
+        ]
+      },
+      "orange": {
+        "role": "primary",
+        "displayName": "Walkman Orange",
+        "canonical": "#ef7a2b",
+        "oklch": "oklch(70.2% 0.168 49.8)",
+        "tonalRamp": [
+          "#2c0000",
+          "#520000",
+          "#7a1c00",
+          "#a33c00",
+          "#ce5c00",
+          "#f18440",
+          "#ffab6f",
+          "#ffd49c"
+        ]
+      },
+      "orange-hi": {
+        "role": "primary",
+        "displayName": "Hot Orange",
+        "canonical": "#ff8d3f",
+        "oklch": "oklch(75.5% 0.164 51.6)",
+        "tonalRamp": [
+          "#2b0000",
+          "#510000",
+          "#781f00",
+          "#a13e00",
+          "#cb5f00",
+          "#ee8640",
+          "#ffad6f",
+          "#ffd59c"
+        ]
+      },
+      "orange-deep": {
+        "role": "primary",
+        "displayName": "Burnt Orange",
+        "canonical": "#a94a14",
+        "oklch": "oklch(52.5% 0.139 45.1)",
+        "tonalRamp": [
+          "#280000",
+          "#4c0400",
+          "#732500",
+          "#9b4312",
+          "#c46333",
+          "#e7895d",
+          "#ffb087",
+          "#ffd7b1"
+        ]
+      },
+      "amber": {
+        "role": "secondary",
+        "displayName": "Amber Phosphor",
+        "canonical": "#ffb43a",
+        "oklch": "oklch(82.2% 0.155 74.7)",
+        "tonalRamp": [
+          "#230000",
+          "#451300",
+          "#6a3100",
+          "#905000",
+          "#b77100",
+          "#d99620",
+          "#fcbc5d",
+          "#ffe38e"
+        ]
+      },
+      "led": {
+        "role": "tertiary",
+        "displayName": "LED Red",
+        "canonical": "#ff3b2f",
+        "oklch": "oklch(65.4% 0.232 28.8)",
+        "tonalRamp": [
+          "#390000",
+          "#630000",
+          "#900000",
+          "#be0000",
+          "#ed251d",
+          "#ff604f",
+          "#ff8e7b",
+          "#ffbba6"
+        ]
+      },
+      "stripe-yellow": {
+        "role": "tertiary",
+        "displayName": "Stripe Yellow",
+        "canonical": "#f2b632",
+        "oklch": "oklch(81.1% 0.153 82.1)",
+        "tonalRamp": [
+          "#200000",
+          "#411900",
+          "#643600",
+          "#895500",
+          "#af7600",
+          "#d19b1c",
+          "#f4c05b",
+          "#ffe78c"
+        ]
+      },
+      "stripe-orange": {
+        "role": "tertiary",
+        "displayName": "Stripe Orange",
+        "canonical": "#e8702a",
+        "oklch": "oklch(67.7% 0.168 46.7)",
+        "tonalRamp": [
+          "#2d0000",
+          "#530000",
+          "#7b1900",
+          "#a43a00",
+          "#cf5a03",
+          "#f28246",
+          "#ffaa74",
+          "#ffd2a0"
+        ]
+      },
+      "stripe-red": {
+        "role": "tertiary",
+        "displayName": "Stripe Red",
+        "canonical": "#c8392b",
+        "oklch": "oklch(55.7% 0.182 29.6)",
+        "tonalRamp": [
+          "#300000",
+          "#580000",
+          "#820000",
+          "#ad291d",
+          "#d94b3b",
+          "#fd7663",
+          "#ff9f8c",
+          "#ffc9b5"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Engraved Rule",
+        "canonical": "rgba(238, 240, 234, 0.12)"
+      },
+      "rule-ink": {
+        "role": "neutral",
+        "displayName": "Engraved Rule on Beige",
+        "canonical": "rgba(23, 24, 26, 0.16)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The hero name only: Silkscreen 700 painted on the tube as an amber phosphor dot matrix (with WebGL), or a CSS dot-matrix mask (without WebGL)."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles, uppercase Saira Expanded, same grid position in every section."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Name in the nav bar."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project names."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "Experience and education entries."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "About introduction, max 36ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "All reading text, max 62ch, tabular lining numerals."
+      },
+      "contact-mail": {
+        "displayName": "Contact mail",
+        "purpose": "The email address in Contact, Jost with 3px orange underline."
+      },
+      "label": {
+        "displayName": "Engraved label",
+        "purpose": "Uppercase tracked Jost 600 terms on rating plates and spec tables."
+      },
+      "readout": {
+        "displayName": "Readout",
+        "purpose": "Amber VT323 on-screen readouts only, with phosphor bloom."
+      }
+    },
+    "shadows": [
+      {
+        "name": "bezel-seat",
+        "value": "inset 0 1px 0 rgba(255,255,255,0.07), 0 24px 48px -24px rgba(0,0,0,0.7)",
+        "purpose": "Gunmetal bezel around project screens only."
+      },
+      {
+        "name": "plate-highlight",
+        "value": "inset 0 1px 0 rgba(255,255,255,0.45)",
+        "purpose": "Molded top edge of beige rating plates."
+      },
+      {
+        "name": "engraved-outline",
+        "value": "inset 0 0 0 1px rgba(238,240,234,0.12)",
+        "purpose": "Charcoal consoles: tape steps, Experience log, tape counter."
+      },
+      {
+        "name": "engraved-rule-bottom",
+        "value": "inset 0 -1px 0 rgba(238,240,234,0.12)",
+        "purpose": "Solid nav bar bottom edge."
+      },
+      {
+        "name": "phosphor-bloom",
+        "value": "text-shadow: 0 0 6px rgba(255,180,58,0.45)",
+        "purpose": "Amber readouts."
+      },
+      {
+        "name": "led-glow",
+        "value": "0 0 6px #ff3b2f",
+        "purpose": "LED status lights."
+      },
+      {
+        "name": "title-over-field",
+        "value": "text-shadow: 0 1px 2px rgba(0,0,0,0.6)",
+        "purpose": "Section titles set directly over a live signal field."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The single house easing for state, reveals, menus and counters."
+      },
+      {
+        "name": "t-fast",
+        "value": "0.45s",
+        "purpose": "State changes: button fill, nav solidity, tape step activation."
+      },
+      {
+        "name": "t-slow",
+        "value": "0.9s",
+        "purpose": "Reveals: opacity plus 22px rise."
+      },
+      {
+        "name": "press",
+        "value": "transform 0.12s ease, translateY(2px)",
+        "purpose": "Button press."
+      },
+      {
+        "name": "converge",
+        "value": "1.4s, delay 0.5s",
+        "purpose": "No-WebGL fallback only: hero name red/cyan offsets converging. With WebGL the name takes the CRT's RGB split."
+      },
+      {
+        "name": "crt-glitch",
+        "value": "0.15s, one screen, every 10-20s",
+        "purpose": "Rare brief RGB color split; no tearing."
+      },
+      {
+        "name": "led-blink",
+        "value": "1.6s steps(2)",
+        "purpose": "LED status blink."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Screens hold one still frame with static chroma bleed; no glitch, counters, fish motion, LED blink or reveals; the tape becomes a static stack."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "559px"
+      },
+      {
+        "name": "nav-drawer",
+        "value": "879px"
+      },
+      {
+        "name": "single-column",
+        "value": "959px"
+      },
+      {
+        "name": "counter-hidden",
+        "value": "420px"
+      },
+      {
+        "name": "wide",
+        "value": "2000px"
+      },
+      {
+        "name": "ultra",
+        "value": "3000px"
+      },
+      {
+        "name": "portrait-hero",
+        "value": "max-aspect-ratio: 3/4"
+      },
+      {
+        "name": "portrait-tape",
+        "value": "max-aspect-ratio: 4/5"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid orange hardware key with ink label and a burnt-orange bottom bevel. The only filled action.",
+      "html": "<div class=\"ds-stage\"><a class=\"ds-btn\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/></svg>Email</a></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-stage{background:var(--charcoal);padding:32px} .ds-btn{display:inline-flex;align-items:center;gap:.55em;padding:.78em 1.3em .7em;font:600 1rem/1.1 Jost,Futura,\"Avenir Next\",system-ui,sans-serif;letter-spacing:.01em;color:var(--ink);background:var(--orange);border:0;border-bottom:3px solid var(--orange-deep);border-radius:6px;text-decoration:none;cursor:pointer;transition:background-color .45s var(--ease),transform .12s ease} .ds-btn:hover{background:var(--orange-hi)} .ds-btn:active{transform:translateY(2px)} .ds-btn:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}"
+    },
+    {
+      "name": "Small Button",
+      "kind": "button",
+      "refersTo": "button-small",
+      "description": "The compact key used in the nav bar.",
+      "html": "<div class=\"ds-stage\"><a class=\"ds-btn-sm\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"5\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"m3 7 9 6 9-6\"/></svg>Email</a></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-stage{background:var(--charcoal);padding:32px} .ds-btn-sm{display:inline-flex;align-items:center;gap:.55em;padding:.52em .95em .46em;font:600 .9rem/1.1 Jost,Futura,system-ui,sans-serif;color:var(--ink);background:var(--orange);border:0;border-bottom:2px solid var(--orange-deep);border-radius:6px;text-decoration:none;transition:background-color .45s var(--ease),transform .12s ease} .ds-btn-sm:hover{background:var(--orange-hi)} .ds-btn-sm:active{transform:translateY(2px)} .ds-btn-sm:focus-visible{outline:2px solid var(--lamp);outline-offset:3px}"
+    },
+    {
+      "name": "Underlined Link",
+      "kind": "custom",
+      "refersTo": "link-on-charcoal",
+      "description": "Lamp or ink text with an orange underline; never orange text.",
+      "html": "<div class=\"ds-dark\"><a class=\"ds-link\" href=\"#\">LinkedIn</a></div><div class=\"ds-light\"><a class=\"ds-link\" href=\"#\">Technology Innovation Institute</a></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-dark{background:var(--charcoal);color:var(--lamp);padding:24px 32px} .ds-light{background:var(--beige);color:var(--ink);padding:24px 32px} .ds-link{color:inherit;font:500 1.0625rem/1.6 Jost,Futura,system-ui,sans-serif;text-decoration:underline 2px var(--orange);text-underline-offset:.28em;transition:text-decoration-thickness .2s ease,text-underline-offset .2s ease} .ds-light .ds-link{text-decoration-color:var(--orange-deep)} .ds-link:hover{text-decoration-thickness:3px;text-underline-offset:.34em} .ds-link:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px} .ds-light .ds-link:focus-visible{outline-color:var(--ink)}"
+    },
+    {
+      "name": "Keycap Tag",
+      "kind": "chip",
+      "refersTo": "key",
+      "description": "Static engraved keycap for skills, with a lifecycle flow variant joined by chevrons.",
+      "html": "<div class=\"ds-panel\"><ul class=\"ds-keys\"><li>ROS 2</li><li>Gazebo</li><li>CUDA</li></ul><ol class=\"ds-keys ds-flow\"><li>Concept design</li><li>Procurement</li><li>Fabrication &amp; test</li></ol></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-panel{background:var(--beige);padding:32px;display:grid;gap:20px} .ds-keys{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none} .ds-keys li{position:relative;padding:.38em .78em .32em;font:500 .95rem/1.3 Jost,Futura,system-ui,sans-serif;color:var(--ink);background:var(--beige-key);border:1px solid var(--beige-edge);border-bottom-width:3px;border-radius:7px} .ds-flow li{margin-right:22px} .ds-flow li:not(:last-child)::after{content:\"\";position:absolute;top:50%;right:-17px;width:7px;height:7px;border-top:2px solid var(--ink-2);border-right:2px solid var(--ink-2);transform:translateY(-50%) rotate(45deg)}"
+    },
+    {
+      "name": "Rating Plate",
+      "kind": "card",
+      "refersTo": "plate",
+      "description": "Engraved definition-list plate on beige; uppercase tracked Jost 600 labels.",
+      "html": "<div class=\"ds-panel\"><dl class=\"ds-plate\"><div class=\"ds-row\"><dt>Largest vessel</dt><dd>17 m USV · 1,800 hp waterjet</dd></div><div class=\"ds-row\"><dt>Next delivery</dt><dd>2027 · first container-transport USV</dd></div><div class=\"ds-row\"><dt>Languages</dt><dd>French · English · Spanish</dd></div></dl></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-panel{background:var(--beige);color:var(--ink);padding:32px;font:400 1.0625rem/1.6 Jost,Futura,system-ui,sans-serif} .ds-plate{margin:0;padding:4px 20px;border:1px solid rgba(23,24,26,.32);border-radius:10px;background:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)} .ds-row{display:grid;grid-template-columns:minmax(7.5em,34%) 1fr;gap:14px;padding:13px 0;border-top:1px solid var(--rule-ink)} .ds-row:first-child{border-top:0} .ds-row dt{padding-top:.22em;font-size:.74rem;font-weight:600;line-height:1.45;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)} .ds-row dd{margin:0;font-weight:500;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "CRT Screen in Bezel",
+      "kind": "custom",
+      "refersTo": "bezel",
+      "description": "Gunmetal bezel holding a tube-black screen with an amber readout caption. Live builds render the WebGL CRT; this is the no-WebGL fallback look.",
+      "html": "<div class=\"ds-stage\"><div class=\"ds-bezel\"><figure class=\"ds-screen\"><figcaption class=\"ds-cap\">X301 into the test pool · Jan 2026</figcaption></figure></div></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-stage{background:var(--charcoal);padding:32px} .ds-bezel{padding:10px;border-radius:26px;background:var(--gunmetal);box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 24px 48px -24px rgba(0,0,0,.7);max-width:420px} .ds-screen{position:relative;margin:0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:radial-gradient(120% 90% at 30% 15%,#1d5f63 0%,#0a2b30 45%,#020809 100%)} .ds-screen::after{content:\"\";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.2) 0 1px,transparent 1px 3px),radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)} .ds-cap{position:absolute;z-index:2;left:18px;bottom:16px;padding:4px 7px 3px;font:400 1.05rem/1.25 VT323,ui-monospace,monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);text-shadow:0 0 6px rgba(255,180,58,.45);background:rgba(5,6,6,.62);border-radius:3px}"
+    },
+    {
+      "name": "Corner HUD with LED",
+      "kind": "custom",
+      "refersTo": "readout-caption",
+      "description": "Amber VT323 readouts pinned to a screen corner, with a blinking LED status light.",
+      "html": "<div class=\"ds-tube\"><div class=\"ds-hud\"><span>CH 03 · EO/IR</span><span><i class=\"ds-led\"></i>Standby</span></div></div>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-tube{background:var(--tube);padding:20px 24px;min-height:120px} .ds-hud{display:flex;justify-content:space-between;gap:16px;font:400 1.2rem/1 VT323,ui-monospace,monospace;letter-spacing:.05em;text-transform:uppercase;color:var(--amber);text-shadow:0 0 6px rgba(255,180,58,.45)} .ds-hud>span{display:inline-flex;align-items:center;gap:.4em} .ds-led{display:inline-block;width:.5em;height:.5em;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led);animation:ds-blink 1.6s steps(2,jump-none) infinite} @keyframes ds-blink{50%{opacity:.25}} @media (prefers-reduced-motion:reduce){.ds-led{animation:none}}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Fixed 60px bar: Saira Expanded wordmark, Jost links with orange current underline, rolling tape counter, small Email key.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-name\" href=\"#\">Jules Berhault</a><span class=\"ds-links\"><a href=\"#\">About</a><a href=\"#\" aria-current=\"true\">Projects</a><a href=\"#\">Contact</a></span><span class=\"ds-counter\"><span>1</span><span>4</span><span>4</span></span><a class=\"ds-mail\" href=\"#\">Email</a></nav>",
+      "css": ":host{--charcoal:#151617;--gunmetal:#25282b;--tube:#050606;--beige:#d7d2c5;--beige-key:#e8e4d9;--beige-edge:#aea898;--lamp:#eef0ea;--lamp-2:#b2b5ae;--ink:#17181a;--ink-2:#4a4a45;--rule:rgba(238,240,234,.12);--rule-ink:rgba(23,24,26,.16);--orange:#ef7a2b;--orange-hi:#ff8d3f;--orange-deep:#a94a14;--amber:#ffb43a;--led:#ff3b2f;--ease:cubic-bezier(.16,1,.3,1)} .ds-nav{display:flex;align-items:center;gap:24px;height:60px;padding:0 32px;background:rgba(21,22,23,.94);box-shadow:inset 0 -1px 0 var(--rule);font-family:Jost,Futura,system-ui,sans-serif} .ds-name{margin-right:auto;font:400 .78rem Saira Expanded,Eurostile,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--lamp);text-decoration:none} .ds-links{display:flex;gap:24px} .ds-links a{color:var(--lamp-2);font-size:.95rem;font-weight:500;text-decoration:none;padding-block:6px;transition:color .2s ease} .ds-links a:hover,.ds-links a[aria-current=\"true\"]{color:var(--lamp)} .ds-links a[aria-current=\"true\"]{text-decoration:underline 2px var(--orange);text-underline-offset:.45em} .ds-links a:focus-visible,.ds-mail:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:4px} .ds-counter{display:flex;gap:2px;padding:3px;background:#0b0c0c;border-radius:5px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)} .ds-counter span{width:.78em;height:1.25em;font-size:.95rem;font-weight:500;line-height:1.25em;text-align:center;color:var(--lamp);font-variant-numeric:tabular-nums;background:linear-gradient(#17191b,#2c2f32 50%,#17191b);border-radius:2px} .ds-mail{padding:.52em .95em .46em;font-size:.9rem;font-weight:600;color:var(--ink);background:var(--orange);border-bottom:2px solid var(--orange-deep);border-radius:6px;text-decoration:none} .ds-mail:hover{background:var(--orange-hi)}"
+    },
+    {
+      "name": "Hardware Stripe",
+      "kind": "custom",
+      "description": "The 12px three-band stripe that opens every section after the hero and closes the hero.",
+      "html": "<div class=\"ds-wrap\"><div class=\"ds-stripe\"></div><div class=\"ds-body\"></div></div>",
+      "css": ":host{} .ds-wrap{background:#151617} .ds-stripe{height:12px;background:linear-gradient(to bottom,#f2b632 0 33.34%,#e8702a 33.34% 66.67%,#c8392b 66.67% 100%)} .ds-body{height:64px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Playback Deck",
+    "overview": "The page is one piece of 1977–1986 analog hardware, imagined cleanly: a smoked-charcoal deck whose screens are live cathode-ray tubes, alternating with computer-beige reading panels set like engraved equipment plates. The visitor plays back a marine robot's camera tape. The hardware is a set of materials, never a costume: no faux-bolts, no skeuomorphic knobs, no wear. Everything is built from the same few housings, one stripe, three signal colors and three faces.\n\nDensity is calm. Reading content sits on beige or on near-opaque charcoal log panels at comfortable measure (36–62ch), on a 12-column grid. Screens carry the imagery and the motion; panels carry the facts. Every screen is a live CRT rendered in one WebGL2 shader (barrel curvature, aperture grille, scanlines, bloom, VHS chroma bleed, hue drift, RGB split on mouse hover and clicks, rare color-split glitches), and all text sits crisp above it, except the hero name, which is drawn on the tube as phosphor. Two generated signal fields, water (sonar) and thermal (EO/IR), stand in where no photograph does.\n\nThe system rejects the dark card-grid engineer portfolio, the neon synthwave grid, glassmorphism and brutalism. The name appears at display size once, in the hero, and never runs edge to edge.",
+    "keyCharacteristics": [
+      "Two housings alternate: smoked charcoal for screen sections, computer beige for reading panels.",
+      "A three-band yellow/orange/red stripe (12px) opens sections and closes the hero.",
+      "Every color outside the housings has exactly one job: orange acts, amber reads out, LED red signals status.",
+      "Every screen is a live CRT; text never is.",
+      "Saira Expanded for titles, Jost for everything read, VT323 only on screens.",
+      "One easing curve, two durations; reduced motion gets a complete still world."
+    ],
+    "rules": [
+      {
+        "name": "The One Job Rule",
+        "body": "Orange means \"press\", amber means \"the machine is reporting\", LED red means \"status\". A color never borrows another's job: no orange text, no amber links, no red buttons.",
+        "section": "colors"
+      },
+      {
+        "name": "The Stripe Exclusivity Rule",
+        "body": "Stripe yellow and stripe red appear only inside the stripe. Of the three bands, only orange also leaves it, and only for actions.",
+        "section": "colors"
+      },
+      {
+        "name": "The Housing Rule",
+        "body": "A section is either a charcoal or tube housing (screens) or a beige panel (reading). Never invent a third housing color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Three Faces Rule",
+        "body": "Saira Expanded for titles and the nav wordmark, Jost for everything read (including the contact email and engraved labels), VT323 only on a screen. No fourth face.",
+        "section": "typography"
+      },
+      {
+        "name": "The Crisp Text Rule",
+        "body": "No text ever receives scanlines, curvature or color distortion. Readouts and titles are DOM text above the tube.",
+        "section": "typography"
+      },
+      {
+        "name": "The Emitters-Only Glow Rule",
+        "body": "Only things that emit light glow: phosphor readouts, LEDs, and the CRT's own bloom. Buttons, panels and text do not.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Bevel-Not-Shadow Rule",
+        "body": "Pressable things are raised with a darker bottom border (3px, 2px on small buttons), not a drop shadow. Pressing moves them down 2px.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do open every section with the 12px stripe at its top edge, and close the hero with it.",
+      "Do keep orange for buttons, link underlines, focus and the current-nav underline; links stay lamp or ink text.",
+      "Do set every on-screen readout in amber VT323, uppercase, with the 6px phosphor bloom.",
+      "Do run every new screen (photo, video, sequence or field) through the shared CRT renderer, inside a gunmetal bezel when it sits in the grid.",
+      "Do keep all text above the tube effect, and give titles over a live field a 0 1px 2px dark text shadow for legibility.",
+      "Do use the one easing curve, cubic-bezier(0.16, 1, 0.3, 1), at 0.45s for state and 0.9s for reveals.",
+      "Do ship a complete still fallback: under reduced motion screens hold one frame with only the static bleed, counters, glitches, fish motion and blinking stop, and the tape becomes a static stack; without WebGL, screens show a CSS scanline-and-vignette overlay and static water and thermal gradients.",
+      "Do use one line-icon set at stroke width 1.6, inline SVG."
+    ],
+    "donts": [
+      "Don't set orange text, amber links, or anything clickable in amber or red.",
+      "Don't put scanlines, curvature or color distortion on body text, and don't let distortion exceed 3 flashes per second.",
+      "Don't use stripe yellow or stripe red outside the stripe.",
+      "Don't add glass, backdrop blur, or glow on anything that does not emit light.",
+      "Don't add a fourth typeface or set reading text in Saira Expanded or VT323.",
+      "Don't set the name at display size anywhere but the hero, or let it run edge to edge.",
+      "Don't build the dark card-grid engineer portfolio or the neon synthwave grid.",
+      "Don't add wear, rivets, knobs or other hardware costume; the hardware is materials only."
+    ]
+  }
+}
