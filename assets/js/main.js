@@ -213,6 +213,22 @@ monitors.forEach((mon) => {
   });
 });
 
+// Warm the monitors up a screen before the wall scrolls in: a brief play/pause makes every browser
+// (iOS ignores preload) fetch the clip and seek to its start point, so the feeds are live on arrival.
+if (crt && !reduced) {
+  const warmIO = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    warmIO.disconnect();
+    monitors.forEach((mon) => {
+      mon.video.preload = 'auto';
+      mon.video.play().then(() => {
+        if (!screens.get(mon.el)?.visible) mon.video.pause();
+      }).catch(() => {});
+    });
+  }, { rootMargin: '100% 0px' });
+  warmIO.observe(document.querySelector('.gcs'));
+}
+
 if (crt) {
   // touchend and click count as user activation on iOS (touchstart does not).
   const resume = () => crt.resumeVideos();
