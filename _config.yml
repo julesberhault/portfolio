@@ -3,3 +3,13 @@ logo: /docs/headshot-circle.png
 description: Marine Robotics Engineer; autonomous surface & underwater vehicles, perception, and control systems.
 show-downloads: false
 theme: jekyll-theme-minimal
+
+# GitHub Pages builds the original Jekyll CV from README.md as a fallback. The cassette-futurist
+# site (served by Cloudflare) is left out, so README.md becomes the Pages home page.
+exclude:
+  - index.html
+  - assets
+  - DESIGN.md
+  - PRODUCT.md
+  - worker.js
+  - wrangler.jsonc

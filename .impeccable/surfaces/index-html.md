@@ -8,7 +8,7 @@ related_targets: []
 # Surface brief: portfolio homepage (index.html)
 
 ## Scope and mode
-- **What it is:** a single-page portfolio served as static HTML/CSS/JS from GitHub Pages. Visitor mode: **Experience** (the work leads, and contact stays within easy reach).
+- **What it is:** a single-page portfolio served as static HTML/CSS/JS from Cloudflare (GitHub Pages keeps the Jekyll CV as a fallback). Visitor mode: **Experience** (the work leads, and contact stays within easy reach).
 - **Screen sizes (mandatory):** mobile (390), tablet (768), desktop (1280–1600), wide (2560) and ultra-wide (3440×1440).
 - **Content source:** `README.md`. Don't invent any claims beyond what it says.
 - **Dropped:**

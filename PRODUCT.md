@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Static HTML/CSS, hand-built, no build step, served by GitHub Pages from this repository. This replaces the current setup where GitHub Pages renders `README.md` through `jekyll-theme-minimal` (`_config.yml`). `README.md` stays a plain-Markdown CV that reads well on GitHub. Before the switch, decide how the site will stop Jekyll from also processing the repo (for example with a `.nojekyll` file or by removing the theme config).
+Static HTML/CSS, hand-built, no build step, served from this repository by Cloudflare Workers static assets on julesberhault.com (deployed by GitHub Actions on every push to `main`). GitHub Pages stays as a fallback: it still renders `README.md` through `jekyll-theme-minimal` (`_config.yml`), which excludes the new site's files. `README.md` stays a plain-Markdown CV that reads well on GitHub.
 
 ## Users
 
@@ -34,7 +34,7 @@ Jules builds real vessels, not just software or simulations. He has taken a 9 m 
 
 - Content sections: intro, education, work experience, projects (grouped by employer), skills, languages, certifications, publications and presentations.
 - Contact channels: email, LinkedIn, GitHub. There is no contact form or backend.
-- Hosting is static only (GitHub Pages).
+- Hosting is static only (Cloudflare static assets; a small Worker only answers video range requests).
 - Undecided: whether a downloadable PDF CV should be offered.
 
 ## Brand Commitments
